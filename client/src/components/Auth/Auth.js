@@ -1,10 +1,9 @@
 import React from 'react'
 
 const Auth = () => {
+  const id = localStorage.getItem('_ID')
   return (
-    <div>
-      
-    </div>
+    id ? document.location = ('./dashboard') : <h2>Panel de connexion</h2>
   )
 }
 
