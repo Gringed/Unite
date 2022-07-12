@@ -25,7 +25,7 @@ const Form = () => {
         <Typography variant="h6">Créer un post</Typography>
         <TextField
           name="creator"
-          variant="outlined"
+          variant="standard"
           label="Créateur"
           fullWidth
           className={classes.input}
@@ -36,7 +36,7 @@ const Form = () => {
         />
         <TextField
           name="title"
-          variant="outlined"
+          variant="standard"
           label="Titre"
           fullWidth
           className={classes.input}
@@ -45,7 +45,7 @@ const Form = () => {
         />
         <TextField
           name="message"
-          variant="outlined"
+          variant="standard"
           label="Message"
           fullWidth
           className={classes.input}
@@ -56,7 +56,7 @@ const Form = () => {
         />
         <TextField
           name="tags"
-          variant="outlined"
+          variant="standard"
           label="Tags"
           fullWidth
           className={classes.input}
