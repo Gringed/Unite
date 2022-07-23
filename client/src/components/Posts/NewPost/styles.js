@@ -176,4 +176,13 @@ export default makeStyles((theme) => ({
       },
     },
   },
+  disabled: {
+      opacity: 0.5,
+      cursor: "default !important",
+      color: "red !important",
+      border: `1px solid red !important`,
+      "&:hover": {
+        background: 'none !important',
+      },
+  }
 }));

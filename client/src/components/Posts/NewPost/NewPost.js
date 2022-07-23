@@ -1,24 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as Icons from 'react-icons/ri'
+import * as Icons from "react-icons/ri";
 
 import { NavLink } from "react-router-dom";
 
 import FileBase from "react-file-base64";
+import { createPost, updatePost } from "../../../actions/posts";
 import useStyles from "./styles";
 
-const NewPost = () => {
+const NewPost = ({ currentId, setCurrentId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     creator: "",
-    title: "",
     message: "",
-    tags: "",
     selectedFile: "",
   });
-  const handleSubmit = () => {};
-  const clear = () => {};
+
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((p) => p._id === currentId) : null
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (currentId) {
+      dispatch(updatePost(currentId, postData));
+    } else {
+      dispatch(createPost(postData));
+    }
+    clear();
+  };
+  const clear = () => {
+    setCurrentId(null)
+    setPostData({
+      message: "",
+      selectedFile: "",
+    });
+  };
+
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
+
   return (
     <div className={classes.postContainer}>
       {isLoading ? (
@@ -46,6 +71,7 @@ const NewPost = () => {
                 setPostData({ ...postData, message: e.target.value })
               }
               value={postData.message}
+              required
             />
             <hr />
             {postData.message ? (
@@ -89,9 +115,19 @@ const NewPost = () => {
                     Annuler message
                   </button>
                 ) : null}
-                <button className="send" onClick={handleSubmit}>
-                  Envoyer
-                </button>
+                {postData.message ? (
+                  <button className="send" onClick={handleSubmit}>
+                    Envoyer
+                  </button>
+                ) : (
+                  <button
+                    className={classes.disabled}
+                    disabled
+                    onClick={handleSubmit}
+                  >
+                    Envoyer
+                  </button>
+                )}
               </div>
             </div>
           </div>
