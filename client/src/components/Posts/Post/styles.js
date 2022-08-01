@@ -53,4 +53,23 @@ export default makeStyles(() => ({
         display: 'flex',
         justifyContent: 'space-between',
       },
+      cardContainer: {
+        display: 'flex',
+    border: `1px solid ${ColorPrim}` ,
+    padding: 16,
+    borderRadius: 20,
+    margin: "8px auto",
+    position: "relative",
+    minHeight: 100
+      },
+      cardLeft: {
+        '& img':{
+          height: 67,
+        width: 67,
+        borderRadius: "25px 0 0 0",
+        boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
+        objectFit: 'cover',
+        border: `2px solid ${ColorGreen}`,
+        }
+      }
 }))

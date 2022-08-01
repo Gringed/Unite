@@ -74,7 +74,7 @@ const NewPost = ({ currentId, setCurrentId }) => {
               required
             />
             <hr />
-            {postData.message ? (
+            {postData.message || postData.selectedFile ? (
               <li className={classes.cardContainer}>
                 <div className={classes.cardLeft}>
                   <img
@@ -91,7 +91,7 @@ const NewPost = ({ currentId, setCurrentId }) => {
                   </div>
                   <div className={classes.content}>
                     <p>{postData.message}</p>
-                    <img src={postData.selectedFile} alt="" />
+                    <img src={postData.selectedFile ? postData.selectedFile : ""} alt="" />
                   </div>
                 </div>
               </li>
@@ -110,12 +110,12 @@ const NewPost = ({ currentId, setCurrentId }) => {
                 </div>
               </div>
               <div className={classes.btnSend}>
-                {postData.message ? (
+                {postData.message || postData.selectedFile ? (
                   <button className="cancel" onClick={clear}>
                     Annuler message
                   </button>
                 ) : null}
-                {postData.message ? (
+                {postData.message || postData.selectedFile ? (
                   <button className="send" onClick={handleSubmit}>
                     Envoyer
                   </button>
