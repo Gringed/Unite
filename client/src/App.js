@@ -14,7 +14,9 @@ const App = () => {
     <div className={classes.app}>
       <Router>
         <Switch>
-          <Route exact path="/" component={Auth} />
+          <Route exact path="/">
+            <Auth signin={false} signup={true} />
+          </Route>
           <Route path="/dashboard" component={Dashboard} />
           <Route path="*">
             <Redirect to="/" />

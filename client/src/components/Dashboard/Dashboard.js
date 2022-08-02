@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Container, AppBar, Grow, Grid } from "@material-ui/core";
+import { Container,Grow, Grid } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
 import {getPosts} from '../../actions/posts'
 
-import Form from "../../components/Form/Form";
-import Posts from "../../components/Posts/Posts";
+import Form from "../Form/Form";
+import Posts from "../Posts/Posts";
 import useStyles from "./styles";
-import logo from "../../images/icon.png";
+
 import { Redirect } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
 
 const Dashboard = () => {
   const [currentId, setCurrentId] = useState(null)
@@ -23,16 +24,7 @@ const Dashboard = () => {
     // ID A CHANGER UNE FOIS L'AUTH FAITE
     !id ? 
     <Container maxWidth="lg">
-      <AppBar className={classes.appBar}>
-        <img
-          className={classes.image}
-          src={logo}
-          alt=""
-          height="40"
-          width="40"
-        />
-        <h1 className={classes.heading}>Unite</h1>
-      </AppBar>
+      <Navbar />
       <Grow in>
         <Container className={classes.container}>
           <Grid

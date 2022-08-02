@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core";
 
 const ColorPrim = "#18191a";
 const ColorGreen = "#90be3e";
@@ -13,6 +13,9 @@ export default makeStyles((theme) => ({
     borderLeft: `1px solid ${ColorWhite}`,
     borderRight: `1px solid ${ColorWhite}`,
     background: ColorPrim,
+    [theme.breakpoints.down('sm')]:{
+      margin: "55px 0 0 0"
+    }
   },
   i: {
     display: "flex",

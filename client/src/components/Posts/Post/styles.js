@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core";
 
 const ColorPrim = '#18191a'
 const ColorGreen = '#90be3e'
