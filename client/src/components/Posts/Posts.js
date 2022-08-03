@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import Post from "./Post/Post";
 import NewPost from "./NewPost/NewPost";
 import useStyles from "./styles";
-const Posts = ({currentId, setCurrentId, user}) => {
+const Posts = ({currentId, setCurrentId}) => {
   const posts = useSelector((state) => state.posts);
   const classes = useStyles();
   console.log(posts);
   return (
     <>
-      <NewPost currentId={currentId} user={user} setCurrentId={setCurrentId}/>
+      <NewPost currentId={currentId} setCurrentId={setCurrentId}/>
       {!posts.length ? (
         <CircularProgress />
       ) : (

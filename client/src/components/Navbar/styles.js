@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core";
 
 const ColorPrim = '#18191a'
 const ColorGreen = '#90be3e'
-const ColorWhite = 'whitesmoke'
 
 
 export default makeStyles((theme) => ({
@@ -10,14 +9,12 @@ export default makeStyles((theme) => ({
         margin: '0',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         background: ColorPrim,
         borderBottom: `5px solid ${ColorGreen}`,
-        padding: '0 80px',
         [theme.breakpoints.down('sm')]: {
             flexDirection: 'column',
-            padding: 0
           },
     },
       heading: {
@@ -32,7 +29,7 @@ export default makeStyles((theme) => ({
       toolbar: {
         display: 'flex',
         justifyContent: 'flex-end',
-        width: 300,
+        width: '400px',
         [theme.breakpoints.down('sm')]: {
           width: 'auto',
         },
@@ -43,28 +40,13 @@ export default makeStyles((theme) => ({
         width: '400px',
         alignItems: 'center',
         [theme.breakpoints.down('sm')]: {
-
-          justifyContent: 'space-evenly',
+          width: 'auto',
+          marginTop: 20,
+          justifyContent: 'center',
         },
       },
       logout: {
-        marginLeft: 20,
-        fontWeight: 600,
-      padding: "10px 20px",
-      background: ColorPrim,
-      color: ColorWhite,
-      border: `1px solid ${ColorWhite}`,
-      borderRadius: 50,
-      transition: "0.2s",
-      fontSize: 11,
-      fontFamily: "Montserrat, sans-serif",
-      cursor: "pointer",
-      "&:hover": {
-        background: ColorGreen,
-        color: ColorPrim,
-        border: `1px solid ${ColorPrim}`,
-        fontWeight: 600,
-      },
+        marginLeft: '20px',
       },
       userName: {
         display: 'flex',

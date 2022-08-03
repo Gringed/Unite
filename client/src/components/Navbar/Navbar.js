@@ -2,27 +2,10 @@ import { AppBar, Avatar, Button, Toolbar } from "@material-ui/core";
 import React from "react";
 import useStyles from "./styles";
 import logo from "../../images/icon.png";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const classes = useStyles();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
-
-  const logout = () => {
-    dispatch({type: 'LOGOUT'})
-    history.push('/')
-    setUser(null);
-  }
-  useEffect(() => {
-    const token = user?.token;
-
-    setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [location])
+  const user = null;
   return (
     <AppBar className={classes.appBar}>
       <Link to="/">
@@ -48,10 +31,12 @@ const Navbar = () => {
               {user.result.name.charAt(0)}
             </Avatar>
             <p className={classes.userName}>{user.result.name}</p>
-            <Button className={classes.logout} onClick={logout}>Déconnexion</Button>
+            <Button className={classes.logout}>Déconnexion</Button>
           </div>
         ) : (
-          null
+          <Button variant="contained" component={Link} to={"/"}>
+            Connexion
+          </Button>
         )}
       </Toolbar>
     </AppBar>

@@ -8,7 +8,7 @@ import FileBase from "react-file-base64";
 import { createPost, updatePost } from "../../../actions/posts";
 import useStyles from "./styles";
 
-const NewPost = ({ currentId, setCurrentId, user }) => {
+const NewPost = ({ currentId, setCurrentId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -66,7 +66,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
             <textarea
               name="message"
               id="message"
-              placeholder={`Quoi de neuf ${user?.result.name}`}
+              placeholder={"Quoi de neuf Jean ?"}
               onChange={(e) =>
                 setPostData({ ...postData, message: e.target.value })
               }

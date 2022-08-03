@@ -4,11 +4,12 @@ import App from "./App";
 import { Provider } from "react-redux";
 import {configureStore} from '@reduxjs/toolkit'
 import './index.css'
-import allReducer from "./reducers";
-
+import postsReducer from "./reducers/posts";
 
 const store = configureStore({
-    reducer: allReducer
+    reducer: {
+        posts: postsReducer
+    }
 });
 
 ReactDOM.render(

@@ -15,14 +15,14 @@ const Dashboard = () => {
   const [currentId, setCurrentId] = useState(null)
   const classes = useStyles();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('profile'))
+  const id = localStorage.getItem('_ID')
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch])
 
   return (
     // ID A CHANGER UNE FOIS L'AUTH FAITE
-    user ? 
+    !id ? 
     <Container maxWidth="lg">
       <Navbar />
       <Grow in>
@@ -34,7 +34,7 @@ const Dashboard = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={7}>
-              <Posts user={user} currentId={currentId} setCurrentId={setCurrentId}/>
+              <Posts currentId={currentId} setCurrentId={setCurrentId}/>
             </Grid>
             <Grid item xs={12} sm={4}>
               <Form />
