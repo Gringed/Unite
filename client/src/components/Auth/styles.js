@@ -27,6 +27,7 @@ export default makeStyles((theme) => ({
   formContainer: {
     display: "flex",
     flexWrap: "wrap",
+    justifyContent: "center",
     "& ul": {
       listStyle: "none",
       "& li": {
@@ -60,9 +61,9 @@ export default makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
       "& input": {
-        padding: "10px 20px",
+        padding: 10,
         border: "none",
-        fontSize: "1.1rem",
+        fontSize: "1rem",
         margin: "10px 0",
         borderRadius: 20,
         transition: "0.3s",
@@ -102,10 +103,12 @@ export default makeStyles((theme) => ({
   eyeIcon: {
     color: ColorPrim,
     cursor: "pointer",
-    fontSize: "1.3rem",
+    fontSize: "1.1rem",
     background: ColorGreen,
     padding: 10,
-    borderRadius: "0 20px 20px 0"
+    borderRadius: "0 20px 20px 0",
+    width: "100%",
+    border: "1px solid" + ColorPrim,
   },
   submitContainer:{
     display: 'flex',
