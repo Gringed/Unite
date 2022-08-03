@@ -7,11 +7,15 @@ import useStyles from "./styles";
 import logo from "../../images/icon.png";
 import { RiEye2Line, RiEyeOffFill } from "react-icons/ri";
 import { gapi } from "gapi-script";
+import {signup, signin} from '../../actions/auth';
+
+const initialState = { firstName: '', lastName: '', email: '', password:'',confirmPassword:''};
 
 const Auth = (props) => {
   const id = localStorage.getItem("_ID");
   const [signModal, setSignModal] = useState(props.signup);
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState()
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
@@ -24,9 +28,19 @@ const Auth = (props) => {
     if (event.target.id === "register") setSignModal(props.signup);
   };
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value })
+  };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if(signModal == props.signup){
+      dispatch(signup(formData, history))
+    }else{
+      dispatch(signin(formData, history))
+    }
+  };
 
   const googleSuccess = async (res) => {
     const result = res?.profileObj;
