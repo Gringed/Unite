@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
-import Icon from "./icon";
 import logo from "../../images/icon.png";
 import { RiEye2Line, RiEyeOffFill } from "react-icons/ri";
-import { Button } from "@material-ui/core";
+import { gapi } from "gapi-script";
+
 const Auth = (props) => {
   const id = localStorage.getItem("_ID");
   const [signModal, setSignModal] = useState(props.signup);
   const [showPassword, setShowPassword] = useState(false);
-
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const history = useHistory();
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -25,6 +28,31 @@ const Auth = (props) => {
 
   const handleSubmit = () => {};
 
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+      history.push("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const googleFailure = async (error) => {
+    console.log(error);
+    console.log("Connexion avec Google échouée");
+  };
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId:
+         process.env.REACT_APP_CLIENT_ID_GOOGLE,
+        scope: "email",
+      });
+    }
+
+    gapi.load("client:auth2", start);
+  }, []);
   return id ? (
     <Redirect to="/dashboard" />
   ) : (
@@ -83,54 +111,53 @@ const Auth = (props) => {
             ) : null}
             <label htmlFor="password">Mot de passe</label>
             <div className={classes.inputShowPass}>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              className="password"
-              onChange={handleChange}
-              required
-            />
-            {showPassword ? (
-              <RiEyeOffFill
-                toggle="#password"
-                className={classes.eyeIcon}
-                onClick={() => handleShowPassword()}
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                className="password"
+                onChange={handleChange}
+                required
               />
-            ) : (
-              <RiEye2Line
-                toggle="#password"
-                className={classes.eyeIcon}
-                onClick={() => handleShowPassword()}
-              />
-            )}
+              {showPassword ? (
+                <RiEyeOffFill
+                  toggle="#password"
+                  className={classes.eyeIcon}
+                  onClick={() => handleShowPassword()}
+                />
+              ) : (
+                <RiEye2Line
+                  toggle="#password"
+                  className={classes.eyeIcon}
+                  onClick={() => handleShowPassword()}
+                />
+              )}
             </div>
             <div className="password error"></div>
             {signModal ? (
               <>
-              
                 <label htmlFor="password-conf">
                   Confirmation du mot de passe
                 </label>
                 <div className={classes.inputShowPass}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password-conf"
-                  className="confirmPwd"
-                  onChange={handleChange}
-                />
-                {showPassword ? (
-                  <RiEyeOffFill
-                    toggle="#password"
-                    className={classes.eyeIcon}
-                    onClick={() => handleShowPassword()}
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password-conf"
+                    className="confirmPwd"
+                    onChange={handleChange}
                   />
-                ) : (
-                  <RiEye2Line
-                    toggle="#password"
-                    className={classes.eyeIcon}
-                    onClick={() => handleShowPassword()}
-                  />
-                )}
+                  {showPassword ? (
+                    <RiEyeOffFill
+                      toggle="#password"
+                      className={classes.eyeIcon}
+                      onClick={() => handleShowPassword()}
+                    />
+                  ) : (
+                    <RiEye2Line
+                      toggle="#password"
+                      className={classes.eyeIcon}
+                      onClick={() => handleShowPassword()}
+                    />
+                  )}
                 </div>
                 <div className="password-confirm error"></div>
                 <input type="checkbox" id="enjoy" />
@@ -142,10 +169,13 @@ const Auth = (props) => {
             ) : null}
             <div className={classes.submitContainer}>
               <GoogleLogin
-                clientId="GOOGLE ID"
+                clientId={process.env.REACT_APP_CLIENT_ID_GOOGLE}
                 icon="true"
                 buttonText="Se connecter avec Google"
                 className={classes.googleButton}
+                onSuccess={googleSuccess}
+                onFailure={googleFailure}
+                cookiePolicy={"single_host_origin"}
               />
               {signModal ? (
                 <input type="submit" value="S'inscrire" />

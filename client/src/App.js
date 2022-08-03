@@ -8,6 +8,7 @@ import {
 import Auth from "./components/Auth/Auth";
 import Dashboard from "./components/Dashboard/Dashboard";
 import useStyles from "./styles";
+
 const App = () => {
   const classes = useStyles();
   return (
