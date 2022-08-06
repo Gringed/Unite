@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    picture: {
+    imageUrl: {
       type: String,
       default: "https://xsgames.co/randomusers/avatar.php?g=pixel",
     },

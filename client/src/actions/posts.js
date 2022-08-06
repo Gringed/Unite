@@ -1,11 +1,12 @@
 import * as api from "../api";
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (num) => async (dispatch) => {
   try {
     const { data } = await api.fetchPosts();
+    const array = data.slice(0, num);
     dispatch({
       type: "FETCH_ALL",
-      payload: data,
+      payload: array,
     });
   } catch (error) {
     console.log(error.message);
@@ -40,8 +41,9 @@ export const deletePost = (id) => async (dispatch) => {
 };
 
 export const likePost = (id) => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem('profile'));
   try {
-    const { data } = await api.likePost(id);
+    const { data } = await api.likePost(id, user?.token);
     dispatch({ type: "LIKE", payload: data });
   } catch (error) {
     console.log(error);

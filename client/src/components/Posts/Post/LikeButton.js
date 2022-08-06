@@ -3,32 +3,63 @@ import React, { useContext, useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useDispatch } from "react-redux";
-import { likePost, unlikePost } from "../../../actions/posts";
-import * as Icons from 'react-icons/ri'
+import { likePost } from "../../../actions/posts";
+import * as Icons from "react-icons/ri";
+import useStyles from "./styles";
+const LikeButton = ({ post, user }) => {
+  const [liked, setLiked] = useState(post?.likes);
+  const classes = useStyles();
 
-const LikeButton = ({ post }) => {
-  const [liked, setLiked] = useState(false);
- /*  const uid = useContext(UidContext); */
   const dispatch = useDispatch();
 
- /*  const like = () => {
-    dispatch(likePost(post._id, uid))
-    setLiked(true);
+  const userId = user?.result.googleId || user?.result?._id;
+  const hasLikedPost = post.likes.find((like) => like === userId);
+
+  const handleLike = async () => {
+    dispatch(likePost(post._id));
+
+    if (hasLikedPost) {
+      setLiked(post.likes.filter((id) => id !== userId));
+    } else {
+      setLiked([...post.likes, userId]);
+    }
   };
 
-  const unlike = () => {
-    dispatch(unlikePost(post._id, uid))
-    setLiked(false);
-  }; */
+  const Likes = () => {
+    if (liked.length > 0) {
+      return liked.find((like) => like === userId) ? (
+        <>
+          <Icons.RiHeartFill className={classes.filled} onClick={handleLike} />
 
-  /* useEffect(() => {
-    if (post.likers.includes(uid)) setLiked(true);
-    else setLiked(false);
-  }, [uid, post.likers, liked]); */
+          <span>
+            {liked.length > 2
+              ? `Vous et ${liked.length - 1} autres`
+              : `${liked.length}`}
+          </span>
+        </>
+      ) : (
+        <>
+          <Icons.RiHeartLine className={classes.icon} onClick={handleLike} />
+          <span>
+            {liked?.length ? liked?.length : 0}
+          </span>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Icons.RiHeartLine className={classes.icon} onClick={handleLike} />
+        <span>
+            {liked?.length ? liked?.length : 0}
+          </span>
+      </>
+    );
+  };
 
   return (
-    <div className="like-container">
-      {/* uid === null */  (
+    <div className={classes.likeIcon}>
+      {!user ? (
         <Popup
           trigger={<Icons.RiHeartLine />}
           position={["bottom center", "bottom right", "bottom left"]}
@@ -36,14 +67,8 @@ const LikeButton = ({ post }) => {
         >
           <div>Connectez-vous pour aimer un post !</div>
         </Popup>
-      )}
-      {/* uid && liked === false */  (
-        <Icons.RiHeartLine  /* onClick={like} */ className="icon"/>
-      )}
-      {/* uid && liked */ (
-        <Icons.RiHeartFill /* onClick={unlike} */ className="icon filled"/>
-      )}
-      <span>{/* {post.likers.length} */}0</span>
+      ) : null}
+      <Likes className={classes.icon} />
     </div>
   );
 };

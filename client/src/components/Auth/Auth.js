@@ -12,10 +12,10 @@ import {signup, signin} from '../../actions/auth';
 const initialState = { firstName: '', lastName: '', email: '', password:'',confirmPassword:''};
 
 const Auth = (props) => {
-  const id = localStorage.getItem("_ID");
+  const user = localStorage.getItem('profile');
   const [signModal, setSignModal] = useState(props.signup);
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState()
+  const [formData, setFormData] = useState(initialState)
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
@@ -67,7 +67,7 @@ const Auth = (props) => {
 
     gapi.load("client:auth2", start);
   }, []);
-  return id ? (
+  return user ? (
     <Redirect to="/dashboard" />
   ) : (
     <div className={classes.logContainer}>
@@ -97,6 +97,7 @@ const Auth = (props) => {
               className="email"
               onChange={handleChange}
               required
+              name="email"
             />
             <div className="email error"></div>
             {signModal ? (
@@ -109,6 +110,7 @@ const Auth = (props) => {
                   onChange={handleChange}
                   required
                   minLength="2"
+                  name="firstName"
                 />
 
                 <label htmlFor="lastname">Nom de famille</label>
@@ -120,6 +122,7 @@ const Auth = (props) => {
                   onChange={handleChange}
                   required
                   minLength="2"
+                  name="lastName"
                 />
               </>
             ) : null}
@@ -131,6 +134,7 @@ const Auth = (props) => {
                 className="password"
                 onChange={handleChange}
                 required
+                name="password"
               />
               {showPassword ? (
                 <RiEyeOffFill
@@ -158,6 +162,7 @@ const Auth = (props) => {
                     id="password-conf"
                     className="confirmPwd"
                     onChange={handleChange}
+                    name="confirmPassword"
                   />
                   {showPassword ? (
                     <RiEyeOffFill
@@ -174,7 +179,7 @@ const Auth = (props) => {
                   )}
                 </div>
                 <div className="password-confirm error"></div>
-                <input type="checkbox" id="enjoy" />
+                <input type="checkbox" id="enjoy" required/>
                 <label htmlFor="enjoy">
                   J'accepte <b>d'espionner mes collègues</b>
                 </label>

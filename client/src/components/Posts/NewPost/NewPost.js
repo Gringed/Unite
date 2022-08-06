@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Icons from "react-icons/ri";
-
+import { timestampParser } from "../../Utils";
 import { NavLink } from "react-router-dom";
 
 import FileBase from "react-file-base64";
 import { createPost, updatePost } from "../../../actions/posts";
 import useStyles from "./styles";
+import { Paper } from "@material-ui/core";
 
 const NewPost = ({ currentId, setCurrentId, user }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,9 +27,9 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
     e.preventDefault();
 
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      dispatch(updatePost(currentId, { ...postData, name: user?.result.name}));
     } else {
-      dispatch(createPost(postData));
+      dispatch(createPost({ ...postData, name: user?.result.name}));
     }
     clear();
   };
@@ -44,6 +45,14 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
     if (post) setPostData(post);
   }, [post]);
 
+  if(!user?.result?.name){
+    return (
+      <Paper className={classes.paper}>
+        <p>Veuillez vous connecter pour poster quelque chose</p>
+      </Paper>
+    )
+  }
+
   return (
     <div className={classes.postContainer}>
       {isLoading ? (
@@ -56,7 +65,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
           <div className={classes.userInfo}>
             <NavLink to="/profil">
               <img
-                src="https://beitniger.com/wp-content/uploads/2020/12/user.png "
+                src={user.result.imageUrl}
                 alt="user-img"
               />
             </NavLink>
@@ -66,7 +75,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
             <textarea
               name="message"
               id="message"
-              placeholder={`Quoi de neuf ${user?.result.name}`}
+              placeholder={`Quoi de neuf  ${user?.result.name.split(" ")[0]} ?`}
               onChange={(e) =>
                 setPostData({ ...postData, message: e.target.value })
               }
@@ -78,7 +87,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
               <li className={classes.cardContainer}>
                 <div className={classes.cardLeft}>
                   <img
-                    src="https://beitniger.com/wp-content/uploads/2020/12/user.png"
+                    src={user.result.imageUrl}
                     alt="user-pic"
                   />
                 </div>
@@ -87,7 +96,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
                     <div className={classes.pseudo}>
                       <h3>Jean Clenche</h3>
                     </div>
-                    <span>time</span>
+                    <span>{timestampParser(Date.now())}</span>
                   </div>
                   <div className={classes.content}>
                     <p>{postData.message}</p>

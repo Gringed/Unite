@@ -19,6 +19,7 @@ const App = () => {
             <Auth signin={false} signup={true} />
           </Route>
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard/search" component={Dashboard} />
           <Route path="*">
             <Redirect to="/" />
           </Route>

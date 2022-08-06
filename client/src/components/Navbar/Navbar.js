@@ -2,27 +2,36 @@ import { AppBar, Avatar, Button, Toolbar } from "@material-ui/core";
 import React from "react";
 import useStyles from "./styles";
 import logo from "../../images/icon.png";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import decode from "jwt-decode";
 const Navbar = () => {
   const classes = useStyles();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
 
   const logout = () => {
-    dispatch({type: 'LOGOUT'})
-    history.push('/')
+    dispatch({ type: "LOGOUT" });
+    history.go();
     setUser(null);
-  }
+  };
+
   useEffect(() => {
     const token = user?.token;
+    
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()){
+        logout();
+      } ;
+    }
 
-    setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [location])
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
   return (
     <AppBar className={classes.appBar}>
       <Link to="/">
@@ -40,19 +49,21 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
         {user ? (
           <div className={classes.profile}>
-            <Avatar
-              className={classes.avatar}
-              alt={user.result.name}
-              src={user.result.imageUrl}
-            >
-              {user.result.name.charAt(0)}
-            </Avatar>
-            <p className={classes.userName}>{user.result.name}</p>
-            <Button className={classes.logout} onClick={logout}>Déconnexion</Button>
+            <Link to="/profile">
+              <Avatar
+                className={classes.avatar}
+                alt={user.result.name}
+                src={user.result.imageUrl}
+              >
+                {user.result.name.charAt(0)}
+              </Avatar>
+              <p className={classes.userName}>{user.result.name}</p>
+            </Link>
+            <Button className={classes.logout} onClick={logout}>
+              Déconnexion
+            </Button>
           </div>
-        ) : (
-          null
-        )}
+        ) : null}
       </Toolbar>
     </AppBar>
   );

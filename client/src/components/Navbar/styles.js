@@ -32,7 +32,6 @@ export default makeStyles((theme) => ({
       toolbar: {
         display: 'flex',
         justifyContent: 'flex-end',
-        width: 300,
         [theme.breakpoints.down('sm')]: {
           width: 'auto',
         },
@@ -40,12 +39,18 @@ export default makeStyles((theme) => ({
       profile: {
         display: 'flex',
         justifyContent: 'space-between',
-        width: '400px',
+        width: 350,
         alignItems: 'center',
         [theme.breakpoints.down('sm')]: {
 
           justifyContent: 'space-evenly',
         },
+        "&>a":{
+          textDecoration: "none",
+          color: ColorWhite,
+          display: "flex",
+          alignItems: "center"
+        }
       },
       logout: {
         marginLeft: 20,
@@ -78,5 +83,6 @@ export default makeStyles((theme) => ({
       avatar: {
         color: theme.palette.getContrastText(ColorPrim),
         backgroundColor: ColorGreen,
+        margin: 10
       },
 }))
