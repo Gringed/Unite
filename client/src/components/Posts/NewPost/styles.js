@@ -13,9 +13,9 @@ export default makeStyles((theme) => ({
     borderLeft: `1px solid ${ColorWhite}`,
     borderRight: `1px solid ${ColorWhite}`,
     background: ColorPrim,
-    [theme.breakpoints.down('sm')]:{
-      margin: "55px 0 0 0"
-    }
+    [theme.breakpoints.down("sm")]: {
+      margin: "55px 0 0 0",
+    },
   },
   i: {
     display: "flex",
@@ -52,8 +52,8 @@ export default makeStyles((theme) => ({
       "&:focus+ hr": {
         width: "100%",
         background: ColorGreen,
-        opacity:1,
-        border: `1px solid ${ColorGreen}`
+        opacity: 1,
+        border: `1px solid ${ColorGreen}`,
       },
     },
     "& hr": {
@@ -79,7 +79,7 @@ export default makeStyles((theme) => ({
     "& img": {
       height: 67,
       width: 67,
-      borderRadius: "20px 0 0 0",
+      borderRadius: 35,
       boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
       objectFit: "cover",
     },
@@ -106,6 +106,7 @@ export default makeStyles((theme) => ({
       margin: "2px 0 6px",
       fontSize: "1.1rem",
       color: ColorWhite,
+      wordBreak: "break-word",
     },
     "& img": {
       width: "100%",
@@ -180,12 +181,21 @@ export default makeStyles((theme) => ({
     },
   },
   disabled: {
-      opacity: 0.5,
-      cursor: "default !important",
-      color: "red !important",
-      border: `1px solid red !important`,
-      "&:hover": {
-        background: 'none !important',
-      },
-  }
+    opacity: 0.5,
+    cursor: "default !important",
+    color: "red !important",
+    border: `1px solid red !important`,
+    "&:hover": {
+      background: "none !important",
+    },
+  },
+  caracmax: {
+    color: "whitesmoke",
+    fontSize: "0.7rem",
+    margin: 20,
+  },
+  hashtag: {
+    color: ColorGreen,
+    fontWeight: 600,
+  },
 }));

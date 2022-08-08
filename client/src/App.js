@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Auth from "./components/Auth/Auth";
 import Dashboard from "./components/Dashboard/Dashboard";
+import PostDetails from "./components/PostDetails/PostDetails";
 import useStyles from "./styles";
 
 const App = () => {
@@ -14,12 +15,15 @@ const App = () => {
   return (
     <div className={classes.app}>
       <Router>
+      
         <Switch>
           <Route exact path="/">
             <Auth signin={false} signup={true} />
           </Route>
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/dashboard/search" component={Dashboard} />
+          <Route path="/dashboard/:id" component={PostDetails} />
+          <Route path="/profile" component={Dashboard} />
           <Route path="*">
             <Redirect to="/" />
           </Route>

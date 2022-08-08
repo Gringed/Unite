@@ -5,14 +5,12 @@ const ColorGreen = '#90be3e'
 
 
 export default makeStyles(() => ({
-    appBar: {
+    appBarSearch: {
         margin: '0',
         display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        background: ColorPrim,
-        borderBottom: `5px solid ${ColorGreen}`
+        marginBottom: 10,
+        borderRadius: 4,
+        padding: 16
     },
     heading: {
         fontFamily: 'Montserrat, sans-serif'
@@ -23,5 +21,8 @@ export default makeStyles(() => ({
     container: {
         marginTop: '100px',
         fontSize: '10px'
+    },
+    hashtag:{
+        color: "red"
     }
 }))

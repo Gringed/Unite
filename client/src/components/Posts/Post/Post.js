@@ -87,17 +87,11 @@ const Post = ({ post, setCurrentId, user }) => {
           <>
             <div className={classes.cardLeft}>
               <img
-                /* src={usersData[0] &&
-                  usersData
-                    .map((user) => {
-                      if (user._id === post.creator)
-                        return "./ReseauSocialV2" + user.picture;
-
-                      else
-                        return null;
-                    })
-                    .join("")} */
-                src="https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png"
+                src={
+                  post.avatar
+                    ? post.avatar
+                    : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                }
                 alt="poster-pic"
               />
             </div>
@@ -113,8 +107,8 @@ const Post = ({ post, setCurrentId, user }) => {
                   {dayjs(post.createdAt).locale(timeParserFR).fromNow()}
                 </span>
                 {(post?.creator === user?.result._id ||
-                post?.creator === user?.result.googleId ||
-                user?.result.isAdmin) && (
+                  post?.creator === user?.result.googleId ||
+                  user?.result.isAdmin) && (
                   <div className={classes.buttonContainer}>
                     <div onClick={() => setCurrentId(post._id)}>
                       <Icons.RiEdit2Fill className="icon" />
@@ -124,7 +118,18 @@ const Post = ({ post, setCurrentId, user }) => {
                 )}
               </div>
               <div className={classes.contenu}>
-                <p>{post.message}</p>
+                <p>
+                  {post.message.split(" ").map((str) => {
+                    if (str.startsWith("#")) {
+                      return (
+                        <span key={str} className={classes.hashtag}>
+                          {str + " "}
+                        </span>
+                      );
+                    }
+                    return str + " ";
+                  })}
+                </p>
                 {post.selectedFile && (
                   <img
                     src={post.selectedFile}

@@ -30,10 +30,10 @@ const Navbar = () => {
       } ;
     }
 
-    setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
   return (
     <AppBar className={classes.appBar}>
+      <div className={classes.appBarContainer}>
       <Link to="/">
         <div className={classes.brandContainer}>
           <img
@@ -65,6 +65,7 @@ const Navbar = () => {
           </div>
         ) : null}
       </Toolbar>
+      </div>
     </AppBar>
   );
 };

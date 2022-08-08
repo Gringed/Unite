@@ -7,7 +7,8 @@ const ColorGreen = '#90be3e'
 
 export default makeStyles(() => ({
     container: {
-      marginTop: 35
+      marginTop: 20,
+      flexDirection: 'column-reverse'
     },
     mainContainer: {
         display: 'flex',

@@ -58,7 +58,7 @@ export default makeStyles((theme) => ({
     minHeight: 100,
     border: "1px solid #ffffff38",
     padding: 15,
-    borderRadius: 20
+    borderRadius: 20,
   },
   cardLeft: {
     "& img": {
@@ -67,7 +67,6 @@ export default makeStyles((theme) => ({
       borderRadius: 50,
       boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
       objectFit: "cover",
-
     },
   },
   cardRight: {
@@ -108,7 +107,8 @@ export default makeStyles((theme) => ({
   contenu: {
     padding: 10,
     border: "1px solid #ffffff38",
-    borderRadius: 20
+    borderRadius: 20,
+    wordBreak: "break-word",
   },
   buttonContainer: {
     display: "flex",
@@ -187,5 +187,9 @@ export default makeStyles((theme) => ({
       padding: "0 5px",
       color: "whitesmoke",
     },
+  },
+  hashtag: {
+    color: ColorGreen,
+    fontWeight: 600,
   },
 }));

@@ -15,10 +15,11 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
   const dispatch = useDispatch();
   const [postData, setPostData] = useState({
     creator: "",
-    message: "",
     selectedFile: "",
   });
-
+  const [video, setVideo] = useState("");
+  const [message, setMessage] = useState("");
+  const caracmax = 250;
   const post = useSelector((state) =>
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
@@ -27,30 +28,62 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
     e.preventDefault();
 
     if (currentId) {
-      dispatch(updatePost(currentId, { ...postData, name: user?.result.name}));
+      dispatch(
+        updatePost(currentId, {
+          ...postData,
+          name: user?.result.name,
+          message: message,
+          avatar: user?.result.imageUrl,
+        })
+      );
     } else {
-      dispatch(createPost({ ...postData, name: user?.result.name}));
+      dispatch(
+        createPost({
+          ...postData,
+          name: user?.result.name,
+          message: message,
+          avatar: user?.result.imageUrl,
+        })
+      );
     }
     clear();
   };
   const clear = () => {
-    setCurrentId(null)
+    setCurrentId(null);
     setPostData({
-      message: "",
       selectedFile: "",
     });
+    setVideo("");
+    setMessage("");
   };
 
   useEffect(() => {
     if (post) setPostData(post);
-  }, [post]);
 
-  if(!user?.result?.name){
+    const handleVideo = () => {
+      let findLink = message.split(" ");
+      for (let i = 0; i < findLink.length; i++) {
+        if (
+          findLink[i].includes("https://www.yout") ||
+          findLink[i].includes("https://yout")
+        ) {
+          let embed = findLink[i].replace("watch?v=", "embed/");
+          setVideo(embed.split("&")[0]);
+          findLink.splice(i, 1);
+          setMessage(findLink.join(" "));
+          setPostData({ selectedFile: "" });
+        }
+      }
+    };
+    handleVideo();
+  }, [post, message, video]);
+
+  if (!user?.result?.name) {
     return (
       <Paper className={classes.paper}>
         <p>Veuillez vous connecter pour poster quelque chose</p>
       </Paper>
-    )
+    );
   }
 
   return (
@@ -64,10 +97,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
         <>
           <div className={classes.userInfo}>
             <NavLink to="/profil">
-              <img
-                src={user.result.imageUrl}
-                alt="user-img"
-              />
+              <img src={user.result.imageUrl} alt="user-img" />
             </NavLink>
           </div>
 
@@ -76,31 +106,43 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
               name="message"
               id="message"
               placeholder={`Quoi de neuf  ${user?.result.name.split(" ")[0]} ?`}
-              onChange={(e) =>
-                setPostData({ ...postData, message: e.target.value })
-              }
-              value={postData.message}
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
               required
             />
             <hr />
-            {postData.message || postData.selectedFile ? (
+            {message || postData.selectedFile || video.length > 2 ? (
               <li className={classes.cardContainer}>
                 <div className={classes.cardLeft}>
-                  <img
-                    src={user.result.imageUrl}
-                    alt="user-pic"
-                  />
+                  <img src={user?.result.imageUrl} alt="user-pic" />
                 </div>
                 <div className={classes.cardRight}>
                   <div className={classes.cardHeader}>
                     <div className={classes.pseudo}>
-                      <h3>Jean Clenche</h3>
+                      <h3>{user?.result.name}</h3>
                     </div>
                     <span>{timestampParser(Date.now())}</span>
                   </div>
                   <div className={classes.content}>
-                    <p>{postData.message}</p>
-                    <img src={postData.selectedFile ? postData.selectedFile : ""} alt="" />
+                    <p>{message.split(" ").map((str) => {
+                      if (str.startsWith("#")) {
+                        return <span key={str} className={classes.hashtag}>{str + " "}</span>
+                      }
+                      return str + " ";
+                    })}</p>
+                    <img
+                      src={postData.selectedFile ? postData.selectedFile : ""}
+                      alt=""
+                    />
+                    {video && (
+                      <iframe
+                        src={video}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        title={video}
+                      ></iframe>
+                    )}
                   </div>
                 </div>
               </li>
@@ -119,12 +161,19 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
                 </div>
               </div>
               <div className={classes.btnSend}>
-                {postData.message || postData.selectedFile ? (
+                <span className={classes.caracmax}>
+                  {caracmax - message.length < 0
+                    ? "Trop de caractères"
+                    : caracmax - message.length + " caractères restants"}
+                </span>
+                {message || postData.selectedFile ? (
                   <button className="cancel" onClick={clear}>
                     Annuler message
                   </button>
                 ) : null}
-                {postData.message || postData.selectedFile ? (
+                {(message && message.length <= caracmax) ||
+                postData.selectedFile ||
+                video ? (
                   <button className="send" onClick={handleSubmit}>
                     Envoyer
                   </button>

@@ -1,49 +1,92 @@
 import React, { useEffect, useState } from "react";
-import { Container,Grow, Grid } from "@material-ui/core";
+import { Container, Grow, Grid, AppBar, TextField } from "@material-ui/core";
+import ChipInput from "material-ui-chip-input";
 import { useDispatch } from "react-redux";
 
-import {getPosts} from '../../actions/posts'
-
+import { getPosts, getPostsBySearch } from "../../actions/posts";
+import Navbar from "../Navbar/Navbar";
 import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
 import useStyles from "./styles";
 
-import { Redirect } from "react-router-dom";
-import Navbar from "../Navbar/Navbar";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 const Dashboard = () => {
-  const [currentId, setCurrentId] = useState(null)
+  const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('profile'))
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const query = useQuery();
+  const history = useHistory();
+  const searchQuery = query.get("searchQuery");
+
+  const [search, setSearch] = useState("");
+  const [tags, setTags] = useState([]);
+
   useEffect(() => {
     dispatch(getPosts());
-  }, [currentId, dispatch])
+  }, [currentId, dispatch]);
 
-  return (
-    // ID A CHANGER UNE FOIS L'AUTH FAITE
-    user ? 
-    <Container maxWidth="lg">
+  const searchPost = () => {
+    if (search.trim()) {
+      dispatch(getPostsBySearch({ search }));
+
+      history.push(`/dashboard/search?searchQuery=${search || 'none'}`)
+    } else {
+      history.push("/");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      searchPost();
+    }
+  };
+ /*  const handleAdd = (tag) => setTags([...tags, tag]);
+  const handleDelete = (tagToDelete) =>
+    setTags(tags.filter((tag) => tag !== tagToDelete)); */
+  return user ? (
+    <>
       <Navbar />
       <Grow in>
-        <Container className={classes.container}>
-          <Grid
-            container
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={3}
-          >
-            <Grid item xs={12} sm={7}>
-              <Posts user={user} currentId={currentId} setCurrentId={setCurrentId}/>
+        <Container className={classes.container} maxWidth={"lg"}>
+          <Grid container justifyContent="space-between" spacing={3}>
+            <Grid item xs={12} sm={7} md={8}>
+              <AppBar
+                position="static"
+                color="inherit"
+                className={classes.appBarSearch}
+              >
+                <TextField
+                  name="search"
+                  variant="outlined"
+                  label="Rechercher . . ."
+                  onKeyDownCapture={handleKeyPress}
+                  fullWidth
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </AppBar>
+              <Posts
+                user={user}
+                currentId={currentId}
+                setCurrentId={setCurrentId}
+              />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={5} md={4}>
+              {/* ICI REMPLACER FORM PAR LES TENDANCES */}
               <Form />
             </Grid>
           </Grid>
         </Container>
       </Grow>
-    </Container>
-    : <Redirect to='/' />
+    </>
+  ) : (
+    <Redirect to="/" />
   );
 };
 
