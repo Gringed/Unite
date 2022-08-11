@@ -10,8 +10,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const Posts = ({ currentId, setCurrentId, user }) => {
   const posts = useSelector((state) => state.posts);
   const [count, setCount] = useState(5);
+
   const classes = useStyles();
-  let items = posts.slice(0, count);
   const fetchMoreData = () => {
     setTimeout(() => {
       setCount(count + 5);
@@ -23,21 +23,17 @@ const Posts = ({ currentId, setCurrentId, user }) => {
       {!posts.length ? (
         <CircularProgress />
       ) : (
-        <Grid
-          className={classes.container}
-          container
-          alignItems="stretch"
-          spacing={3}
-        >
+        <Grid className={classes.container}>
           <InfiniteScroll
-            dataLength={items}
+            dataLength={count}
             next={fetchMoreData}
             hasMore={true}
             // CHANGER LE LOADER
             loader={<h1>Loading...</h1>}
+            className={classes.infinite}
           >
-            {items?.map((post) => (
-              <Grid key={post._id} item sm={12}>
+            {posts?.map((post) => (
+              <Grid key={post._id} item lg={12} md={12} sm={12}>
                 <Post post={post} setCurrentId={setCurrentId} user={user} />
               </Grid>
             ))}

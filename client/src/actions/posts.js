@@ -1,11 +1,24 @@
 import * as api from "../api";
 
+export const getPost = (id) => async (dispatch) => {
+  try {
+    const {data}  = await api.fetchPost(id)
+    dispatch({
+      type: "FETCH_POST",
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const getPosts = (num) => async (dispatch) => {
   try {
     const {data}  = await api.fetchPosts()
+    const array = data.slice(0, num);
     dispatch({
       type: "FETCH_ALL",
-      payload: data,
+      payload: array,
     });
   } catch (error) {
     console.log(error.message);

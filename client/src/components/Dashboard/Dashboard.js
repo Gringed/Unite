@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grow, Grid, AppBar, TextField } from "@material-ui/core";
-import ChipInput from "material-ui-chip-input";
+import { Container, Grow, Grid, AppBar } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
 import { getPosts, getPostsBySearch } from "../../actions/posts";

@@ -17,6 +17,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
     creator: "",
     selectedFile: "",
   });
+  const posts = useSelector((state) => state.posts)
   const [video, setVideo] = useState("");
   const [message, setMessage] = useState("");
   const caracmax = 250;
@@ -83,7 +84,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
       }
     };
     handleVideo();
-  }, [post, message, video, postData]);
+  }, [post, posts, message, video, postData]);
 
   if (!user?.result?.name) {
     return (

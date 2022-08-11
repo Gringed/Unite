@@ -9,9 +9,8 @@ export default makeStyles(() => ({
     container: {
       marginTop: 20,
     },
-    mainContainer: {
-        display: 'flex',
-        alignItems: 'center',
+    infinite: {
+        width: '100%'
       },
       smMargin: {
         

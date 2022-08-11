@@ -1,6 +1,17 @@
 import mongoose from "mongoose";
 import PostMessage from "../models/postMsg.js";
 
+export const getPost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await PostMessage.findById(id);
+
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const getPosts = async (req, res) => {
   try {
     const postMessages = await PostMessage.find().sort({_id: -1});
@@ -12,12 +23,12 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPostsBySearch = async (req, res) => {
-  const { searchQuery, tags } = req.query;
+  const { searchQuery} = req.query;
   try {
     const message = new RegExp(searchQuery, "i");
     const posts = await PostMessage.find({
-      $or: [{ message }, { tags: { $in: tags.split(",") } }],
-    });
+      $or: [{ message }],
+    }).sort({_id: -1});
     res.json({data: posts})
   } catch (error) {
     res.status(404).json({ message: error.message });
