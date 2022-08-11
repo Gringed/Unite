@@ -2,11 +2,10 @@ import * as api from "../api";
 
 export const getPosts = (num) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
-    const array = data.slice(0, num);
+    const {data}  = await api.fetchPosts()
     dispatch({
       type: "FETCH_ALL",
-      payload: array,
+      payload: data,
     });
   } catch (error) {
     console.log(error.message);
@@ -16,7 +15,7 @@ export const getPosts = (num) => async (dispatch) => {
 export const getPostsBySearch = (searchQuery) => async(dispatch) => {
   try {
     const {data: {data}} = await api.fetchPostsBySearch(searchQuery)
-    console.log(data)
+    dispatch({type: "FETCH_BY_SEARCH", payload: data})
   } catch (error) {
     console.log(error.message)
   }

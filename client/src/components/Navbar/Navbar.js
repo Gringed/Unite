@@ -27,10 +27,11 @@ const Navbar = () => {
       const decodedToken = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()){
         logout();
+        window.alert("Vous avez été déconnecté, veuillez vous reconnecter")
       } ;
     }
 
-  }, [location]);
+  }, [location, logout, user.token]);
   return (
     <AppBar className={classes.appBar}>
       <div className={classes.appBarContainer}>

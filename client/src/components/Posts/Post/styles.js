@@ -46,10 +46,8 @@ export default makeStyles((theme) => ({
   title: {
     padding: "0 16px",
   },
-  cardActions: {
-    padding: "0 16px 8px 16px",
-    display: "flex",
-    justifyContent: "space-between",
+  cardAction: {
+    display: "block",
   },
   cardContainer: {
     display: "flex",
@@ -59,6 +57,7 @@ export default makeStyles((theme) => ({
     border: "1px solid #ffffff38",
     padding: 15,
     borderRadius: 20,
+    boxShadow: "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)"
   },
   cardLeft: {
     "& img": {
@@ -81,6 +80,7 @@ export default makeStyles((theme) => ({
       padding: 10,
       margin: 0,
       color: "whitesmoke",
+      textAlign: "start"
     },
   },
   cardHeader: {

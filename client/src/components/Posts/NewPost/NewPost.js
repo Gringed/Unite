@@ -31,8 +31,8 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
       dispatch(
         updatePost(currentId, {
           ...postData,
-          name: user?.result.name,
           message: message,
+          name: user?.result.name,
           avatar: user?.result.imageUrl,
         })
       );
@@ -40,8 +40,8 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
       dispatch(
         createPost({
           ...postData,
-          name: user?.result.name,
           message: message,
+          name: user?.result.name,
           avatar: user?.result.imageUrl,
         })
       );
@@ -58,7 +58,10 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
   };
 
   useEffect(() => {
-    if (post) setPostData(post);
+    if (post) {
+      setPostData(post);
+      setMessage(message);
+    }
 
     const handleVideo = () => {
       let findLink = message.split(" ");
@@ -73,10 +76,14 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
           setMessage(findLink.join(" "));
           setPostData({ selectedFile: "" });
         }
+        if (findLink[i].includes("/\n/gi")) {
+          setMessage(message.replace("/\n/gi", "<br />"))
+        }
+        
       }
     };
     handleVideo();
-  }, [post, message, video]);
+  }, [post, message, video, postData]);
 
   if (!user?.result?.name) {
     return (
@@ -105,7 +112,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
             <textarea
               name="message"
               id="message"
-              placeholder={`Quoi de neuf  ${user?.result.name.split(" ")[0]} ?`}
+              placeholder={currentId ? 'Modifiez votre message':`Quoi de neuf  ${user?.result.name.split(" ")[0]} ?`}
               onChange={(e) => setMessage(e.target.value)}
               value={message}
               required
@@ -124,12 +131,18 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
                     <span>{timestampParser(Date.now())}</span>
                   </div>
                   <div className={classes.content}>
-                    <p>{message.split(" ").map((str) => {
-                      if (str.startsWith("#")) {
-                        return <span key={str} className={classes.hashtag}>{str + " "}</span>
-                      }
-                      return str + " ";
-                    })}</p>
+                    <p>
+                      {message.split(" ").map((str) => {
+                        if (str.startsWith("#")) {
+                          return (
+                            <span key={str} className={classes.hashtag}>
+                              {str + " "}
+                            </span>
+                          );
+                        }
+                        return str + " ";
+                      })}
+                    </p>
                     <img
                       src={postData.selectedFile ? postData.selectedFile : ""}
                       alt=""

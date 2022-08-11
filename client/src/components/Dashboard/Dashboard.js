@@ -25,7 +25,7 @@ const Dashboard = () => {
   const searchQuery = query.get("searchQuery");
 
   const [search, setSearch] = useState("");
-  const [tags, setTags] = useState([]);
+  // const [tags, setTags] = useState([]);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -35,7 +35,7 @@ const Dashboard = () => {
     if (search.trim()) {
       dispatch(getPostsBySearch({ search }));
 
-      history.push(`/dashboard/search?searchQuery=${search || 'none'}`)
+      history.push(`/dashboard/search?searchQuery=${search || "none"}`);
     } else {
       history.push("/");
     }
@@ -46,7 +46,7 @@ const Dashboard = () => {
       searchPost();
     }
   };
- /*  const handleAdd = (tag) => setTags([...tags, tag]);
+  /*  const handleAdd = (tag) => setTags([...tags, tag]);
   const handleDelete = (tagToDelete) =>
     setTags(tags.filter((tag) => tag !== tagToDelete)); */
   return user ? (
@@ -61,15 +61,15 @@ const Dashboard = () => {
                 color="inherit"
                 className={classes.appBarSearch}
               >
-                <TextField
+                <input
                   name="search"
-                  variant="outlined"
-                  label="Rechercher . . ."
+                  type="text"
+                  placeholder="Rechercher . . ."
                   onKeyDownCapture={handleKeyPress}
-                  fullWidth
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
+                <hr />
               </AppBar>
               <Posts
                 user={user}
@@ -86,7 +86,9 @@ const Dashboard = () => {
       </Grow>
     </>
   ) : (
-    <Redirect to="/" />
+    <>
+      <Redirect to="/" />
+    </>
   );
 };
 
