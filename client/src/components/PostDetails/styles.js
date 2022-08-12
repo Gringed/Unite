@@ -70,6 +70,9 @@ export default makeStyles((theme) => ({
   contenu: {
     borderRadius: 20,
     wordBreak: "break-word",
+    "& hr":{
+      border: "1px solid #ffffff12 !important"
+    }
   },
   buttonContainer: {
     display: "flex",
@@ -152,7 +155,7 @@ export default makeStyles((theme) => ({
     },
   },
   hashtag: {
-    color: ColorGreen,
+    color: ColorGreen + "!important",
     fontWeight: 600,
   },
 

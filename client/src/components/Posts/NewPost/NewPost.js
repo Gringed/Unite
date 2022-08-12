@@ -17,12 +17,12 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
     creator: "",
     selectedFile: "",
   });
-  const posts = useSelector((state) => state.posts)
+
   const [video, setVideo] = useState("");
   const [message, setMessage] = useState("");
   const caracmax = 250;
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
+    currentId ? state.posts.posts.find((p) => p._id === currentId) : null
   );
 
   const handleSubmit = (e) => {
@@ -84,7 +84,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
       }
     };
     handleVideo();
-  }, [post, posts, message, video, postData]);
+  }, [post,  message, video, postData]);
 
   if (!user?.result?.name) {
     return (

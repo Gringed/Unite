@@ -1,6 +1,6 @@
 import { CircularProgress, Container, Grid, Grow } from "@material-ui/core";
 import Fancybox from "../FancyBox";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory, useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
@@ -10,10 +10,14 @@ import Form from "../Form/Form";
 import { dateParse } from "../Utils";
 import DeleteCard from "../Posts/Post/DeleteCard";
 import { RiArrowGoBackFill } from "react-icons/ri";
+import LikeButton from "../Posts/Post/LikeButton";
+import CardComments from "../Posts/Post/CardComments";
+import * as Icons from "react-icons/ri";
 
 const PostDetails = () => {
+  const [showComments, setShowComments] = useState(false);
   const user = JSON.parse(localStorage.getItem("profile"));
-  const posts = useSelector((state) => state.posts);
+  const { post, posts} = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -33,38 +37,38 @@ const PostDetails = () => {
                 <RiArrowGoBackFill />
                 <h1>Retour</h1>
               </div>
-              {posts._id ? (
+              {post ? (
                 <div className={classes.cardContainer}>
                   <div className={classes.cardHeader}>
                     <img
                       src={
-                        posts.avatar
-                          ? posts.avatar
+                        post.avatar
+                          ? post.avatar
                           : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
                       }
                       alt="poster-pic"
                     />
                     <div className={classes.pseudo}>
-                      <h3>{posts.name}</h3>
+                      <h3>{post.name}</h3>
                       {/* {post.creator !== userData._id && (
       <FollowHandler idToFollow={post.creator} type={"card"} />
     )} */}
                     </div>
-                    {(posts?.creator === user?.result._id ||
-                      posts?.creator === user?.result.googleId ||
+                    {(post?.creator === user?.result._id ||
+                      post?.creator === user?.result.googleId ||
                       user?.result.isAdmin) && (
                       <div className={classes.buttonContainer}>
-                        {/* <div onClick={() => setCurrentId(posts._id)}>
+                        {/* <div onClick={() => setCurrentId(post._id)}>
                               <Icons.RiEdit2Fill className="icon" />
                             </div> */}
-                        <DeleteCard id={posts._id} />
+                        <DeleteCard id={post._id} />
                       </div>
                     )}
                   </div>
                   <div className={classes.cardContenu}>
                     <div className={classes.contenu}>
                       <p>
-                        {posts.message.split(" ").map((str) => {
+                        {post.message.split(" ").map((str) => {
                           if (str.startsWith("#")) {
                             return (
                               <span key={str} className={classes.hashtag}>
@@ -75,33 +79,46 @@ const PostDetails = () => {
                           return str + " ";
                         })}
                       </p>
-                      {posts.selectedFile && (
+                      {post.selectedFile && (
                         <Fancybox>
-                          <a href={posts.selectedFile} data-fancybox="gallery">
+                          <a href={post.selectedFile} data-fancybox="gallery">
                             <img
                               className={classes.cardPic}
                               src={
-                                posts.selectedFile ||
+                                post.selectedFile ||
                                 "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
                               }
-                              alt={posts.title}
+                              alt={post.title}
                             />
                           </a>
                         </Fancybox>
                       )}
-                      {posts.video && (
+                      {post.video && (
                         <iframe
                           width="500"
                           height="300"
-                          src={posts.video}
+                          src={post.video}
                           frameBorder="0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
-                          title={posts._id}
+                          title={post._id}
                         ></iframe>
                       )}
-                      <span>{dateParse(posts.createdAt)}</span>
+                      <hr />
+                      <span>{dateParse(post.createdAt)}</span>
                     </div>
+                    <div className={classes.footer}>
+                      <div className={classes.commentIcon}>
+                        <Icons.RiMessage3Fill
+                          onClick={() => setShowComments(!showComments)}
+                          className={classes.icon}
+                        />
+                        <span>{/* {post.comments.length} */}0</span>
+                      </div>
+                      <LikeButton post={post} user={user} />
+                      <Icons.RiShareForwardFill className={classes.icon} />
+                    </div>
+                    {showComments && <CardComments post={post} />}
                   </div>
                 </div>
               ) : (

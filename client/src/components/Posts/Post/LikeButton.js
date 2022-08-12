@@ -31,7 +31,7 @@ const LikeButton = ({ post, user }) => {
         <>
           <Icons.RiHeartFill className={classes.filled} onClick={handleLike} />
 
-          <span>
+          <span style={{fontSize: "0.7rem"}}>
             {liked.length > 2
               ? `Vous et ${liked.length - 1} autres`
               : `${liked.length}`}
