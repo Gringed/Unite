@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 const Posts = ({ currentId, setCurrentId, user }) => {
-  const {posts} = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
   const [count, setCount] = useState(5);
 
   const classes = useStyles();
@@ -17,11 +17,17 @@ const Posts = ({ currentId, setCurrentId, user }) => {
       setCount(count + 5);
     }, 1500);
   };
+
+  if (!posts.length && !isLoading) return (
+  <Grid>
+    <h2 className={classes.empty}>Aucun résultat, veuillez rééssayer . .</h2>
+  </Grid>);
+
   return (
     <>
       <NewPost currentId={currentId} user={user} setCurrentId={setCurrentId} />
-      {!posts.length ? (
-        'No posts'
+      {isLoading ? (
+        <CircularProgress />
       ) : (
         <Grid className={classes.container}>
           <InfiniteScroll

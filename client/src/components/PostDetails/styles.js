@@ -46,9 +46,6 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: 18,
-    },
     "& p": {
       fontSize: "1rem",
       padding: "10px 0 0",
@@ -96,7 +93,9 @@ export default makeStyles((theme) => ({
     width: "100%",
     borderRadius: 20,
     boxShadow: "0 0 3px rgb(255 255 255 / 34%)",
-    marginBottom: 10
+    marginBottom: 10,
+    maxHeight: 525,
+    objectFit: "cover"
   },
   footer: {
     display: "flex",

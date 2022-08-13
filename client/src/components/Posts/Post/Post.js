@@ -97,7 +97,7 @@ const Post = ({ post, setCurrentId, user }) => {
             <LikeButton post={post} user={user} />
             <Icons.RiShareForwardFill className={classes.icon} />
           </div>
-          {showComments && <CardComments post={post} />}
+          {showComments && <CardComments post={post} user={user}/>}
         </div>
       </li>
     </>

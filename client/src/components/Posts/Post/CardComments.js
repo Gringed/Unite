@@ -5,10 +5,9 @@ import { /* addComment, */ getPosts } from "../../../actions/posts";
 import { timestampParser } from "../../Utils";
 /* import EditDeleteCom from "./EditDeleteCom"; */
 
-const CardComments = ({ post }) => {
+const CardComments = ({ post, user }) => {
   const [text, setText] = useState("");
-  const usersData = useSelector((state) => state.usersReducer);
-  const userData = useSelector((state) => state.userReducer);
+  
   const dispatch = useDispatch();
 
   const handleComment = (e) => {
@@ -23,7 +22,7 @@ const CardComments = ({ post }) => {
         return (
           <div
             className={
-              comment.commenterId === userData._id
+              comment.commenterId === user?.result._id
                 ? "comment-container client"
                 : "comment-container"
             }
@@ -48,7 +47,7 @@ const CardComments = ({ post }) => {
               <div className="comment-header">
                 <div className="pseudo">
                   <h3>{comment.commenterName}</h3>
-                  {comment.commenterId !== userData._id && (
+                  {comment.commenterId !== user?.result._id && (
                     {/* <FollowHandler
                       idToFollow={comment.commenterId}
                       type={"card"}
@@ -63,7 +62,7 @@ const CardComments = ({ post }) => {
           </div>
         );
       })}
-      {userData._id && (
+      {user?.result._id && (
         <form action="" onSubmit={handleComment} className="comment-form">
           <input
             type="text"

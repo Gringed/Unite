@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Icons from "react-icons/ri";
 import { timestampParser } from "../../Utils";
-import { NavLink } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import FileBase from "react-file-base64";
 import { createPost, updatePost } from "../../../actions/posts";
@@ -13,6 +13,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
   const [isLoading, setIsLoading] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const [postData, setPostData] = useState({
     creator: "",
     selectedFile: "",
@@ -44,7 +45,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
           message: message,
           name: user?.result.name,
           avatar: user?.result.imageUrl,
-        })
+        }, history)
       );
     }
     clear();
@@ -104,9 +105,9 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
       ) : (
         <>
           <div className={classes.userInfo}>
-            <NavLink to="/profil">
+            <Link to="/profile">
               <img src={user.result.imageUrl} alt="user-img" />
-            </NavLink>
+            </Link>
           </div>
 
           <div className={classes.postForm}>

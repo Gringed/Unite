@@ -17,7 +17,7 @@ import * as Icons from "react-icons/ri";
 const PostDetails = () => {
   const [showComments, setShowComments] = useState(false);
   const user = JSON.parse(localStorage.getItem("profile"));
-  const { post, posts} = useSelector((state) => state.posts);
+  const { post, posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -25,7 +25,7 @@ const PostDetails = () => {
 
   useEffect(() => {
     dispatch(getPost(id));
-  }, [id]);
+  }, [id, posts]);
   return user ? (
     <>
       <Navbar />
@@ -33,10 +33,13 @@ const PostDetails = () => {
         <Container className={classes.container} maxWidth={"lg"}>
           <Grid container justifyContent="space-between" spacing={3}>
             <Grid item xs={12} sm={7} md={8}>
+            <Link to={'/dashboard'}>
               <div className={classes.back}>
-                <RiArrowGoBackFill />
-                <h1>Retour</h1>
+                
+                  <RiArrowGoBackFill />
+                  <h1>Retour</h1>
               </div>
+              </Link>
               {post ? (
                 <div className={classes.cardContainer}>
                   <div className={classes.cardHeader}>
@@ -126,7 +129,8 @@ const PostDetails = () => {
               )}
             </Grid>
             <Grid item xs={12} sm={5} md={4}>
-              {/* ICI REMPLACER FORM PAR LES TENDANCES */}
+              {/* ICI REMPLACER FORM PAR LES TENDANCES 
+              <PostByCreator />*/}
               <Form />
             </Grid>
           </Grid>

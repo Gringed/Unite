@@ -1,8 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
-import { deepPurple } from '@material-ui/core/colors';
 
-const ColorPrim = '#18191a'
-const ColorGreen = '#90be3e'
+const ColorWhite = 'whitesmoke'
 
 
 export default makeStyles(() => ({
@@ -12,8 +10,8 @@ export default makeStyles(() => ({
     infinite: {
         width: '100%'
       },
-      smMargin: {
-        
+      empty: {
+        color: ColorWhite
       },
       actionDiv: {
         textAlign: 'center',
