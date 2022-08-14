@@ -24,7 +24,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     width: "100%",
     maxWidth: "1280px",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   heading: {
     color: "white",
@@ -80,7 +80,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     textAlign: "center",
     [theme.breakpoints.down("sm")]: {
-      display: 'none'
+      display: "none",
     },
   },
   brandContainer: {

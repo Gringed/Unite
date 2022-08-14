@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const ColorPrim = "#18191a";
 const ColorGreen = "#90be3e";
@@ -6,9 +6,9 @@ const ColorWhite = "whitesmoke";
 
 export default makeStyles((theme) => ({
   container: {
-    marginTop: '100px',
-    fontSize: '10px'
-},
+    marginTop: "100px",
+    fontSize: "10px",
+  },
   cardContainer: {
     display: "flex",
     margin: "8px auto",
@@ -18,12 +18,13 @@ export default makeStyles((theme) => ({
     border: "1px solid #ffffff38",
     padding: 15,
     borderRadius: 20,
-    boxShadow: "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)"
+    boxShadow:
+      "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
   },
   cardHeader: {
     display: "flex",
     alignItems: "center",
-    
+
     "& img": {
       height: 55,
       width: 55,
@@ -51,26 +52,26 @@ export default makeStyles((theme) => ({
       padding: "10px 0 0",
       color: ColorWhite,
       textAlign: "start",
-      whiteSpace: 'pre-line'
+      whiteSpace: "pre-line",
     },
-    "& span":{
+    "& span": {
       color: ColorWhite,
       fontSize: "0.8rem",
       textTransform: "capitalize",
-    }
+    },
   },
   pseudo: {
     display: "flex",
     color: ColorWhite,
     fontSize: "1.1em",
-    marginLeft: 10
+    marginLeft: 10,
   },
   contenu: {
     borderRadius: 20,
     wordBreak: "break-word",
-    "& hr":{
-      border: "1px solid #ffffff12 !important"
-    }
+    "& hr": {
+      border: "1px solid #ffffff12 !important",
+    },
   },
   buttonContainer: {
     display: "flex",
@@ -158,13 +159,13 @@ export default makeStyles((theme) => ({
   },
 
   // PARTIE POST SEUL
-  back:{
-    display: 'flex',
+  back: {
+    display: "flex",
     alignItems: "center",
     color: ColorWhite,
-    "& svg" :{
+    "& svg": {
       fontSize: "2em",
       marginRight: 20,
-    }
-  }
+    },
+  },
 }));

@@ -42,7 +42,7 @@ export default makeStyles((theme) => ({
       margin: 0,
       color: "whitesmoke",
       textAlign: "start",
-      whiteSpace: 'pre-line'
+      whiteSpace: "pre-line",
     },
   },
   cardHeader: {
@@ -173,7 +173,7 @@ export default makeStyles((theme) => ({
       "&:focus": {
         boxShadow: "0 0 2px 2px rgb(144 190 62)",
         outline: "none",
-        border: "1px solid transparent"
+        border: "1px solid transparent",
       },
     },
     "& button": {
@@ -203,7 +203,7 @@ export default makeStyles((theme) => ({
       "&:hover::before": {
         top: 0,
         borderRadius: 0,
-        color: ColorWhite
+        color: ColorWhite,
       },
     },
   },
@@ -218,13 +218,13 @@ export default makeStyles((theme) => ({
     margin: "5px 0",
     borderRadius: "20px 20px 20px 6px",
   },
-  leftPart:{
+  leftPart: {
     "& img": {
       height: 40,
       width: 40,
       borderRadius: 25,
       boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
-          objectFit: "cover",
-    }
-  }
+      objectFit: "cover",
+    },
+  },
 }));

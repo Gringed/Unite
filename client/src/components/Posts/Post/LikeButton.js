@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 /* import { UidContext } from "../AppContext"; */
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -31,7 +31,7 @@ const LikeButton = ({ post, user }) => {
         <>
           <Icons.RiHeartFill className={classes.filled} onClick={handleLike} />
 
-          <span style={{fontSize: "0.7rem"}}>
+          <span style={{ fontSize: "0.7rem" }}>
             {liked.length > 2
               ? `Vous et ${liked.length - 1} autres`
               : `${liked.length}`}
@@ -40,9 +40,7 @@ const LikeButton = ({ post, user }) => {
       ) : (
         <>
           <Icons.RiHeartLine className={classes.icon} onClick={handleLike} />
-          <span>
-            {liked?.length ? liked?.length : 0}
-          </span>
+          <span>{liked?.length ? liked?.length : 0}</span>
         </>
       );
     }
@@ -50,9 +48,7 @@ const LikeButton = ({ post, user }) => {
     return (
       <>
         <Icons.RiHeartLine className={classes.icon} onClick={handleLike} />
-        <span>
-            {liked?.length ? liked?.length : 0}
-          </span>
+        <span>{liked?.length ? liked?.length : 0}</span>
       </>
     );
   };

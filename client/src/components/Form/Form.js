@@ -17,9 +17,9 @@ const Form = () => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(postData))
+    dispatch(createPost(postData));
   };
-  const clear = () => {}
+  const clear = () => {};
   return (
     <Paper className={classes.paper}>
       <form
@@ -78,10 +78,22 @@ const Form = () => {
             }
           />
         </div>
-        <Button className={classes.buttonSubmit} variant="contained" size="large" type="submit" fullWidth>
+        <Button
+          className={classes.buttonSubmit}
+          variant="contained"
+          size="large"
+          type="submit"
+          fullWidth
+        >
           Envoyer
         </Button>
-        <Button className={classes.button} variant="contained" size="large" onClick={clear} fullWidth>
+        <Button
+          className={classes.button}
+          variant="contained"
+          size="large"
+          onClick={clear}
+          fullWidth
+        >
           Réintialiser
         </Button>
       </form>

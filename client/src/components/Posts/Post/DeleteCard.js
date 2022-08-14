@@ -1,8 +1,7 @@
-
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deletePost } from "../../../actions/posts";
-import * as Icons from 'react-icons/ri'
+import * as Icons from "react-icons/ri";
 
 const DeleteCard = (props) => {
   const dispatch = useDispatch();

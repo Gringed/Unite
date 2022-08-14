@@ -15,7 +15,6 @@ const App = () => {
   return (
     <div className={classes.app}>
       <Router>
-      
         <Switch>
           <Route exact path="/">
             <Auth signin={false} signup={true} />

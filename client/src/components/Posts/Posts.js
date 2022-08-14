@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, CircularProgress } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import Post from "./Post/Post";
@@ -18,10 +18,14 @@ const Posts = ({ currentId, setCurrentId, user }) => {
     }, 1500);
   };
 
-  if (!posts.length && !isLoading) return (
-  <Grid>
-    <h2 className={classes.empty}>Aucun résultat, veuillez rééssayer . .</h2>
-  </Grid>);
+  if (!posts.length && !isLoading)
+    return (
+      <Grid>
+        <h2 className={classes.empty}>
+          Aucun résultat, veuillez rééssayer . .
+        </h2>
+      </Grid>
+    );
 
   return (
     <>

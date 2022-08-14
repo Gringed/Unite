@@ -21,8 +21,6 @@ const Dashboard = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const query = useQuery();
   const history = useHistory();
-  const searchQuery = query.get("searchQuery");
-
   const [search, setSearch] = useState("");
   // const [tags, setTags] = useState([]);
 

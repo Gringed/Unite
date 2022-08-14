@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
-import { useEffect } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
-import { addComment, getPost, getPosts } from "../../../actions/posts";
+import { useDispatch } from "react-redux";
+import { addComment } from "../../../actions/posts";
 /* import FollowHandler from "../Profil/FollowHandler"; */
 import { timestampParser } from "../../Utils";
 /* import EditDeleteCom from "./EditDeleteCom"; */
@@ -20,17 +19,17 @@ const CardComments = ({ post, user }) => {
 
   const handleComment = async (e) => {
     e.preventDefault();
-    if(comment){
-    const newComment = await dispatch(
-      addComment(post._id, {
-        comment: comment,
-        commenterId: user?.result._id,
-        commenterName: user?.result.name,
-      })
-    );
-    setComments(newComment);
-    setComment("");
-    commentsRef.current.scrollIntoView({ behavior: "smooth" });
+    if (comment) {
+      const newComment = await dispatch(
+        addComment(post._id, {
+          comment: comment,
+          commenterId: user?.result._id,
+          commenterName: user?.result.name,
+        })
+      );
+      setComments(newComment);
+      setComment("");
+      commentsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -78,10 +77,7 @@ const CardComments = ({ post, user }) => {
       ))}
       ;
       {user?.result._id && (
-        <form
-          onSubmit={handleComment}
-          className={classes.commentForm}
-        >
+        <form onSubmit={handleComment} className={classes.commentForm}>
           <input
             type="text"
             name="text"

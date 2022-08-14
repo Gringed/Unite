@@ -20,9 +20,7 @@ export default makeStyles((theme) => ({
     padding: 20,
     textAlign: "center",
     borderRadius: 40,
-    [theme.breakpoints.down("xs")]: {
-      
-    },
+    [theme.breakpoints.down("xs")]: {},
   },
   formContainer: {
     display: "flex",
@@ -58,8 +56,8 @@ export default makeStyles((theme) => ({
       },
     },
     "& form": {
-        display: "flex",
-        flexDirection: "column",
+      display: "flex",
+      flexDirection: "column",
       "& input": {
         padding: 10,
         border: "none",
@@ -94,11 +92,11 @@ export default makeStyles((theme) => ({
   },
   inputShowPass: {
     display: "flex",
-    alignItems:"center",
+    alignItems: "center",
     justifyContent: "space-between",
     "& input": {
-        borderRadius: "20px 0 0 20px !important"
-    }
+      borderRadius: "20px 0 0 20px !important",
+    },
   },
   eyeIcon: {
     color: ColorPrim,
@@ -110,10 +108,10 @@ export default makeStyles((theme) => ({
     width: "100%",
     border: "1px solid" + ColorPrim,
   },
-  submitContainer:{
-    display: 'flex',
+  submitContainer: {
+    display: "flex",
     flexDirection: "column",
-    marginTop: 15
+    marginTop: 15,
   },
   googleButton: {
     borderRadius: "20px !important",
@@ -123,8 +121,8 @@ export default makeStyles((theme) => ({
     cursor: "pointer",
     border: "1px solid" + ColorPrim,
     justifyContent: "center !important",
-    "&>div":{
-        borderRadius: "20px !important"
+    "&>div": {
+      borderRadius: "20px !important",
     },
     "&:hover": {
       background: ColorPrim,

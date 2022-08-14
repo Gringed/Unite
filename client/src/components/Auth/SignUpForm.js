@@ -5,7 +5,7 @@ import { RiEye2Line, RiEyeOffFill } from "react-icons/ri";
 import useStyles from "./styles";
 
 const SignUpForm = () => {
-    const classes = useStyles();
+  const classes = useStyles();
   const [formSubmit, setFormSubmit] = useState(false);
   const [email, setEmail] = useState("");
   const [firstName, setFirstname] = useState("");
@@ -14,8 +14,8 @@ const SignUpForm = () => {
   const [confirmPwd, setConfirmPwd] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword)
-
+  const handleShowPassword = () =>
+    setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -24,7 +24,6 @@ const SignUpForm = () => {
     const passwordError = document.querySelector(".password.error");
     const confirmPwdError = document.querySelector(".password-confirm.error");
     const enjoyError = document.querySelector(".enjoy.error");
-
     confirmPwdError.innerHTML = "";
     enjoyError.innerHTML = "";
 
@@ -49,9 +48,8 @@ const SignUpForm = () => {
           if (res.data.errors) {
             emailError.innerHTML = res.data.errors.email;
             passwordError.innerHTML = res.data.errors.password;
-          }
-          else{
-              setFormSubmit(true)
+          } else {
+            setFormSubmit(true);
           }
         })
         .catch((err) => console.log(err));
@@ -115,7 +113,19 @@ const SignUpForm = () => {
             value={password}
             required
           />
-          {showPassword ? <RiEyeOffFill toggle="#password" className={classes.eyeIcon} onClick={() => handleShowPassword()}/> : <RiEye2Line toggle="#password" className={classes.eyeIcon} onClick={() => handleShowPassword()}/>}
+          {showPassword ? (
+            <RiEyeOffFill
+              toggle="#password"
+              className={classes.eyeIcon}
+              onClick={() => handleShowPassword()}
+            />
+          ) : (
+            <RiEye2Line
+              toggle="#password"
+              className={classes.eyeIcon}
+              onClick={() => handleShowPassword()}
+            />
+          )}
           <div className="password error"></div>
           <br />
           <label htmlFor="password-conf">Confirmation du mot de passe</label>
@@ -127,7 +137,19 @@ const SignUpForm = () => {
             onChange={(e) => setConfirmPwd(e.target.value)}
             value={confirmPwd}
           />
-          {showPassword ? <RiEyeOffFill toggle="#password" className={classes.eyeIcon} onClick={() => handleShowPassword()}/> : <RiEye2Line toggle="#password" className={classes.eyeIcon} onClick={() => handleShowPassword()}/>}
+          {showPassword ? (
+            <RiEyeOffFill
+              toggle="#password"
+              className={classes.eyeIcon}
+              onClick={() => handleShowPassword()}
+            />
+          ) : (
+            <RiEye2Line
+              toggle="#password"
+              className={classes.eyeIcon}
+              onClick={() => handleShowPassword()}
+            />
+          )}
           <div className="password-confirm error"></div>
           <br />
           <input type="checkbox" id="enjoy" />

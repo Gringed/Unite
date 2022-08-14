@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Icons from "react-icons/ri";
 import { timestampParser } from "../../Utils";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import FileBase from "react-file-base64";
 import { createPost, getPosts, updatePost } from "../../../actions/posts";
@@ -10,10 +10,8 @@ import useStyles from "./styles";
 import { Paper } from "@material-ui/core";
 
 const NewPost = ({ currentId, setCurrentId, user }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
   const [postData, setPostData] = useState({
     creator: "",
     selectedFile: "",
@@ -49,7 +47,7 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
       );
     }
     clear();
-    dispatch(getPosts())
+    dispatch(getPosts());
   };
   const clear = () => {
     setCurrentId(null);
@@ -79,8 +77,6 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
           setMessage(findLink.join(" "));
           setPostData({ selectedFile: "" });
         }
-        
-        
       }
     };
     handleVideo();
@@ -96,115 +92,110 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
 
   return (
     <div className={classes.postContainer}>
-      {isLoading ? (
-        <img
-          className={classes.i}
-          src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
-        />
-      ) : (
-        <>
-          <div className={classes.userInfo}>
-            <Link to="/profile">
-              <img src={user.result.imageUrl} alt="user-img" />
-            </Link>
-          </div>
+      <div className={classes.userInfo}>
+        <Link to="/profile">
+          <img src={user.result.imageUrl} alt="user-img" />
+        </Link>
+      </div>
 
-          <div className={classes.postForm}>
-            <textarea
-              name="message"
-              id="message"
-              placeholder={currentId ? 'Modifiez votre message':`Quoi de neuf  ${user?.result.name.split(" ")[0]} ?`}
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
-              required
-            />
-            <hr />
-            {message || postData.selectedFile || video.length > 2 ? (
-              <li className={classes.cardContainer}>
-                <div className={classes.cardLeft}>
-                  <img src={user?.result.imageUrl} alt="user-pic" />
+      <div className={classes.postForm}>
+        <textarea
+          name="message"
+          id="message"
+          placeholder={
+            currentId
+              ? "Modifiez votre message"
+              : `Quoi de neuf  ${user?.result.name.split(" ")[0]} ?`
+          }
+          onChange={(e) => setMessage(e.target.value)}
+          value={message}
+          required
+        />
+        <hr />
+        {message || postData.selectedFile || video.length > 2 ? (
+          <li className={classes.cardContainer}>
+            <div className={classes.cardLeft}>
+              <img src={user?.result.imageUrl} alt="user-pic" />
+            </div>
+            <div className={classes.cardRight}>
+              <div className={classes.cardHeader}>
+                <div className={classes.pseudo}>
+                  <h3>{user?.result.name}</h3>
                 </div>
-                <div className={classes.cardRight}>
-                  <div className={classes.cardHeader}>
-                    <div className={classes.pseudo}>
-                      <h3>{user?.result.name}</h3>
-                    </div>
-                    <span>{timestampParser(Date.now())}</span>
-                  </div>
-                  <div className={classes.content}>
-                    <p>
-                      {message.split(" ").map((str) => {
-                        if (str.startsWith("#")) {
-                          return (
-                            <span key={str} className={classes.hashtag}>
-                              {str + " "}
-                            </span>
-                          );
-                        }
-                        return str + " ";
-                      })}
-                    </p>
-                    <img
-                      src={postData.selectedFile ? postData.selectedFile : ""}
-                      alt=""
-                    />
-                    {video && (
-                      <iframe
-                        src={video}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        title={video}
-                      ></iframe>
-                    )}
-                  </div>
-                </div>
-              </li>
-            ) : null}
-            <div className={classes.footerForm}>
-              <div className={classes.icon}>
-                <Icons.RiImage2Fill />
-                <div className={classes.fileInput}>
-                  <FileBase
-                    type="file"
-                    multiple={false}
-                    onDone={({ base64 }) =>
-                      setPostData({ ...postData, selectedFile: base64 })
-                    }
-                  />
-                </div>
+                <span>{timestampParser(Date.now())}</span>
               </div>
-              <div className={classes.btnSend}>
-                <span className={classes.caracmax}>
-                  {caracmax - message.length < 0
-                    ? "Trop de caractères"
-                    : caracmax - message.length + " caractères restants"}
-                </span>
-                {message || postData.selectedFile ? (
-                  <button className="cancel" onClick={clear}>
-                    Annuler message
-                  </button>
-                ) : null}
-                {(message && message.length <= caracmax) ||
-                postData.selectedFile ||
-                video ? (
-                  <button className="send" onClick={handleSubmit}>
-                    Envoyer
-                  </button>
-                ) : (
-                  <button
-                    className={classes.disabled}
-                    disabled
-                    onClick={handleSubmit}
-                  >
-                    Envoyer
-                  </button>
+              <div className={classes.content}>
+                <p>
+                  {message.split(" ").map((str) => {
+                    if (str.startsWith("#")) {
+                      return (
+                        <span key={str} className={classes.hashtag}>
+                          {str + " "}
+                        </span>
+                      );
+                    }
+                    return str + " ";
+                  })}
+                </p>
+                <img
+                  src={postData.selectedFile ? postData.selectedFile : ""}
+                  alt=""
+                />
+                {video && (
+                  <iframe
+                    src={video}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title={video}
+                  ></iframe>
                 )}
               </div>
             </div>
+          </li>
+        ) : null}
+        <div className={classes.footerForm}>
+          <div className={classes.icon}>
+            <Icons.RiImage2Fill />
+            <div className={classes.fileInput}>
+              <FileBase
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) =>
+                  setPostData({ ...postData, selectedFile: base64 })
+                }
+              />
+            </div>
           </div>
-        </>
-      )}
+          <div className={classes.btnSend}>
+            <span className={classes.caracmax}>
+              {caracmax - message.length < 0
+                ? "Trop de caractères"
+                : caracmax - message.length + " caractères restants"}
+            </span>
+            {message || postData.selectedFile ? (
+              <button className="cancel" onClick={clear}>
+                Annuler message
+              </button>
+            ) : null}
+            {(message && message.length <= caracmax) ||
+            postData.selectedFile ||
+            video ? (
+              <button className="send" onClick={handleSubmit}>
+                Envoyer
+              </button>
+            ) : (
+              <button
+                className={classes.disabled}
+                disabled
+                onClick={handleSubmit}
+              >
+                Envoyer
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

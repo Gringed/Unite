@@ -5,16 +5,13 @@ import LikeButton from "./LikeButton";
 import dayjs from "dayjs";
 import timeParserFR from "dayjs/locale/fr";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles";
 import * as Icons from "react-icons/ri";
 import { ButtonBase } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 const Post = ({ post, setCurrentId, user }) => {
   const [showComments, setShowComments] = useState(false);
-  const userData = useSelector((state) => state.userReducer);
   const classes = useStyles();
-  const dispatch = useDispatch();
   const history = useHistory();
   dayjs.extend(relativeTime);
 
@@ -97,7 +94,7 @@ const Post = ({ post, setCurrentId, user }) => {
             <LikeButton post={post} user={user} />
             <Icons.RiShareForwardFill className={classes.icon} />
           </div>
-          {showComments && <CardComments post={post} user={user}/>}
+          {showComments && <CardComments post={post} user={user} />}
         </div>
       </li>
     </>

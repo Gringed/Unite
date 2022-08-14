@@ -2,7 +2,7 @@ import { CircularProgress, Container, Grid, Grow } from "@material-ui/core";
 import Fancybox from "../FancyBox";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect, useHistory, useParams } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import useStyles from "./styles";
 import { getPost } from "../../actions/posts";
@@ -19,7 +19,6 @@ const PostDetails = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const { post, posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
-  const history = useHistory();
   const classes = useStyles();
   const { id } = useParams();
 
@@ -33,12 +32,11 @@ const PostDetails = () => {
         <Container className={classes.container} maxWidth={"lg"}>
           <Grid container justifyContent="space-between" spacing={3}>
             <Grid item xs={12} sm={7} md={8}>
-            <Link to={'/dashboard'}>
-              <div className={classes.back}>
-                
+              <Link to={"/dashboard"}>
+                <div className={classes.back}>
                   <RiArrowGoBackFill />
                   <h1>Retour</h1>
-              </div>
+                </div>
               </Link>
               {post ? (
                 <div className={classes.cardContainer}>
@@ -121,7 +119,7 @@ const PostDetails = () => {
                       <LikeButton post={post} user={user} />
                       <Icons.RiShareForwardFill className={classes.icon} />
                     </div>
-                    {showComments && <CardComments post={post} user={user}/>}
+                    {showComments && <CardComments post={post} user={user} />}
                   </div>
                 </div>
               ) : (
