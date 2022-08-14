@@ -5,7 +5,7 @@ import { timestampParser } from "../../Utils";
 import { Link, useHistory } from "react-router-dom";
 
 import FileBase from "react-file-base64";
-import { createPost, updatePost } from "../../../actions/posts";
+import { createPost, getPosts, updatePost } from "../../../actions/posts";
 import useStyles from "./styles";
 import { Paper } from "@material-ui/core";
 
@@ -45,10 +45,11 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
           message: message,
           name: user?.result.name,
           avatar: user?.result.imageUrl,
-        }, history)
+        })
       );
     }
     clear();
+    dispatch(getPosts())
   };
   const clear = () => {
     setCurrentId(null);
@@ -78,14 +79,12 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
           setMessage(findLink.join(" "));
           setPostData({ selectedFile: "" });
         }
-        if (findLink[i].includes("/\n/gi")) {
-          setMessage(message.replace("/\n/gi", "<br />"))
-        }
+        
         
       }
     };
     handleVideo();
-  }, [post,  message, video, postData]);
+  }, [post, dispatch, message, video, postData]);
 
   if (!user?.result?.name) {
     return (

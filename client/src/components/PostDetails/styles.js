@@ -50,7 +50,8 @@ export default makeStyles((theme) => ({
       fontSize: "1rem",
       padding: "10px 0 0",
       color: ColorWhite,
-      textAlign: "start"
+      textAlign: "start",
+      whiteSpace: 'pre-line'
     },
     "& span":{
       color: ColorWhite,
@@ -94,8 +95,6 @@ export default makeStyles((theme) => ({
     borderRadius: 20,
     boxShadow: "0 0 3px rgb(255 255 255 / 34%)",
     marginBottom: 10,
-    maxHeight: 525,
-    objectFit: "cover"
   },
   footer: {
     display: "flex",

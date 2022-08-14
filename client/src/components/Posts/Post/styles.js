@@ -2,9 +2,10 @@ import { makeStyles } from "@material-ui/core";
 
 const ColorPrim = "#18191a";
 const ColorGreen = "#90be3e";
+const ColorWhite = "whitesmoke";
 
 export default makeStyles((theme) => ({
-  
+  // POST ET AFFICHAGE
   cardAction: {
     display: "block",
   },
@@ -16,7 +17,8 @@ export default makeStyles((theme) => ({
     border: "1px solid #ffffff38",
     padding: 15,
     borderRadius: 20,
-    boxShadow: "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)"
+    boxShadow:
+      "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
   },
   cardLeft: {
     "& img": {
@@ -39,7 +41,8 @@ export default makeStyles((theme) => ({
       padding: 10,
       margin: 0,
       color: "whitesmoke",
-      textAlign: "start"
+      textAlign: "start",
+      whiteSpace: 'pre-line'
     },
   },
   cardHeader: {
@@ -91,7 +94,7 @@ export default makeStyles((theme) => ({
     marginTop: 12,
     boxShadow: "0 0 3px rgba(51,51,51,0.342)",
     maxHeight: 525,
-    objectFit: "cover"
+    objectFit: "cover",
   },
   footer: {
     display: "flex",
@@ -153,4 +156,75 @@ export default makeStyles((theme) => ({
     color: ColorGreen,
     fontWeight: 600,
   },
+
+  // COMMENTAIRES DU POST
+  commentForm: {
+    marginTop: "15px !important",
+    display: "flex",
+    "& input[type='text']": {
+      width: "100%",
+      background: "none",
+      borderRadius: 20,
+      border: "1px solid " + ColorWhite,
+      padding: 10,
+      fontSize: "1rem",
+      color: ColorWhite,
+      transition: "all 0.2s ease-in-out",
+      "&:focus": {
+        boxShadow: "0 0 2px 2px rgb(144 190 62)",
+        outline: "none",
+        border: "1px solid transparent"
+      },
+    },
+    "& button": {
+      padding: 10,
+      width: 60,
+      background: ColorWhite,
+      borderRadius: "20px 6px 20px 20px",
+      transition: "0.2s",
+      border: ColorWhite,
+      marginLeft: 10,
+      position: "relative",
+      overflow: "hidden",
+      zIndex: 0,
+      cursor: "pointer",
+      "&::before": {
+        content: "''",
+        position: "absolute",
+        top: 60,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: ColorGreen,
+        borderRadius: "50% 50% 0% 0%",
+        zIndex: "-1",
+        transition: "all .5s",
+      },
+      "&:hover::before": {
+        top: 0,
+        borderRadius: 0,
+        color: ColorWhite
+      },
+    },
+  },
+  commentContainerClient: {
+    border: "1px solid" + ColorGreen,
+    borderRadius: 20,
+  },
+  commentContainer: {
+    display: "flex",
+    border: "1px solid" + ColorGreen,
+    padding: 15,
+    margin: "5px 0",
+    borderRadius: "20px 20px 20px 6px",
+  },
+  leftPart:{
+    "& img": {
+      height: 40,
+      width: 40,
+      borderRadius: 25,
+      boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
+          objectFit: "cover",
+    }
+  }
 }));

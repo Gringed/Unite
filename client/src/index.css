@@ -1,7 +1,31 @@
 body {
-    background-color: #18191A;
-
+  background-color: #18191a;
 }
 a {
-    text-decoration: none;
+  text-decoration: none;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #90be3e;
+  border: 31px none #ffffff;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #90be3e;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #90be3e;
+}
+::-webkit-scrollbar-track {
+  background: #18191a;
+}
+::-webkit-scrollbar-track:hover {
+  background: whitesmoke;
+}
+::-webkit-scrollbar-track:active {
+  background: whitesmoke;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
 }

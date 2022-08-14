@@ -116,12 +116,12 @@ const PostDetails = () => {
                           onClick={() => setShowComments(!showComments)}
                           className={classes.icon}
                         />
-                        <span>{/* {post.comments.length} */}0</span>
+                        <span>{post.comments.length}</span>
                       </div>
                       <LikeButton post={post} user={user} />
                       <Icons.RiShareForwardFill className={classes.icon} />
                     </div>
-                    {showComments && <CardComments post={post} />}
+                    {showComments && <CardComments post={post} user={user}/>}
                   </div>
                 </div>
               ) : (

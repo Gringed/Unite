@@ -92,7 +92,7 @@ const Post = ({ post, setCurrentId, user }) => {
                 onClick={() => setShowComments(!showComments)}
                 className={classes.icon}
               />
-              <span>{/* {post.comments.length} */}0</span>
+              <span>{post.comments.length}</span>
             </div>
             <LikeButton post={post} user={user} />
             <Icons.RiShareForwardFill className={classes.icon} />

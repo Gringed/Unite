@@ -14,7 +14,7 @@ export const getPost = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   try {
-    const postMessages = await PostMessage.find().sort({_id: -1});
+    const postMessages = await PostMessage.find().sort({ _id: -1 });
 
     res.status(200).json(postMessages);
   } catch (error) {
@@ -23,13 +23,13 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPostsBySearch = async (req, res) => {
-  const { searchQuery} = req.query;
+  const { searchQuery } = req.query;
   try {
     const message = new RegExp(searchQuery, "i");
     const posts = await PostMessage.find({
       $or: [{ message }],
-    }).sort({_id: -1});
-    res.json({data: posts})
+    }).sort({ _id: -1 });
+    res.json({ data: posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -67,17 +67,6 @@ export const updatePost = async (req, res) => {
   res.json(updatedPost);
 };
 
-export const deletePost = async (req, res) => {
-  const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send("Aucun post trouvé");
-
-  await PostMessage.findByIdAndRemove(id);
-
-  res.json({ message: "Post supprimé avec succès" });
-};
-
 export const likePost = async (req, res) => {
   const { id } = req.params;
 
@@ -100,4 +89,35 @@ export const likePost = async (req, res) => {
   });
 
   res.json(updatedPost);
+};
+
+export const addComment = async (req, res) => {
+  const { id } = req.params;
+  const { commenterId, commenterName, comment } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send("Aucun post trouvé");
+  const post = await PostMessage.findById(id);
+
+  post.comments.push({
+    commenterId,
+    commenterName,
+    comment,
+    timestamp: new Date().getTime(),
+  });
+
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+    new: true,
+  });
+  res.json(updatedPost);
+};
+
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send("Aucun post trouvé");
+
+  await PostMessage.findByIdAndRemove(id);
+
+  res.json({ message: "Post supprimé avec succès" });
 };

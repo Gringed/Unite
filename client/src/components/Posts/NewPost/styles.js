@@ -108,6 +108,7 @@ export default makeStyles((theme) => ({
       fontSize: "1.1rem",
       color: ColorWhite,
       wordBreak: "break-word",
+      whiteSpace: 'pre-line'
     },
     "& img": {
       width: "100%",

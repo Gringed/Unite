@@ -17,11 +17,11 @@ const postSchema = mongoose.Schema({
       {
         commenterId: String,
         commenterName: String,
-        text: String,
+        comment: String,
         timestamp: Number,
       },
     ],
-    required: true,
+    default: [],
   },
   createdAt: {
     type: Date,

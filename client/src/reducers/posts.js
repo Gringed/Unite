@@ -1,8 +1,8 @@
 export default (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
-    case 'START_LOADING':
+    case "START_LOADING":
       return { ...state, isLoading: true };
-    case 'END_LOADING':
+    case "END_LOADING":
       return { ...state, isLoading: false };
     case "FETCH_ALL":
       return { ...state, posts: action.payload };
@@ -25,6 +25,15 @@ export default (state = { isLoading: true, posts: [] }, action) => {
         posts: state.posts.map((post) =>
           post._id === action.payload._id ? action.payload : post
         ),
+      };
+    case "ADD_COMMENT":
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload._id) return action.payload;
+
+          return post;
+        }),
       };
     case "DELETE":
       return {
