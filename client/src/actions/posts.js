@@ -83,13 +83,14 @@ export const likePost = (id) => async (dispatch) => {
 };
 
 export const addComment =
-  (id, comment, commenterId, commenterName) => async (dispatch) => {
+  (id, comment, commenterId, commenterName, commenterImg) => async (dispatch) => {
     try {
       const { data } = await api.addComment(
         id,
         comment,
         commenterId,
-        commenterName
+        commenterName,
+        commenterImg
       );
       dispatch({ type: "ADD_COMMENT", payload: data });
       return data.comments;

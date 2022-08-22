@@ -17,6 +17,7 @@ const postSchema = mongoose.Schema({
       {
         commenterId: String,
         commenterName: String,
+        commenterImg: String,
         comment: String,
         timestamp: Number,
       },

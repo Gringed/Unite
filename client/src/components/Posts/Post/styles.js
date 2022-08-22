@@ -208,15 +208,18 @@ export default makeStyles((theme) => ({
     },
   },
   commentContainerClient: {
-    border: "1px solid" + ColorGreen,
-    borderRadius: 20,
+    display: "flex",
+    border: "1px solid " + ColorGreen,
+    padding: 15,
+    margin: "5px 0",
+    borderRadius: "20px 20px 3px 25px",
   },
   commentContainer: {
     display: "flex",
-    border: "1px solid" + ColorGreen,
+    border: "1px solid " + ColorWhite,
     padding: 15,
     margin: "5px 0",
-    borderRadius: "20px 20px 20px 6px",
+    borderRadius: 20,
   },
   leftPart: {
     "& img": {
@@ -226,5 +229,24 @@ export default makeStyles((theme) => ({
       boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
       objectFit: "cover",
     },
+  },
+  rightPart: {
+    "& p":{
+      wordBreak: "break-word",
+    }
+  },
+  commentHeader: {
+    display: "flex",
+    alignItems: "center",
+    color: ColorWhite
+  },
+  commentPseudo: {
+    margin: "0 10px",
+    display: "flex",
+    alignItems:"center",
+    "& span":{
+      fontSize: "0.9rem",
+      margin:"0 0 0 3px"
+    }
   },
 }));

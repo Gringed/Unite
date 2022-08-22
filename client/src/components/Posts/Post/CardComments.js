@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { addComment } from "../../../actions/posts";
-/* import FollowHandler from "../Profil/FollowHandler"; */
+import FollowHandler from "../../Profile/FollowHandler";
 import { timestampParser } from "../../Utils";
 /* import EditDeleteCom from "./EditDeleteCom"; */
 import useStyles from "./styles";
@@ -25,6 +25,7 @@ const CardComments = ({ post, user }) => {
           comment: comment,
           commenterId: user?.result._id,
           commenterName: user?.result.name,
+          commenterImg: user?.result.imageUrl
         })
       );
       setComments(newComment);
@@ -40,7 +41,7 @@ const CardComments = ({ post, user }) => {
           <div ref={commentsRef}></div>
           <div
             className={
-              comment.commenterId === user?.result._id
+              comment.commenterId === user?.result._id || comment.commenterId === user?.result.googleId
                 ? classes.commentContainerClient
                 : classes.commentContainer
             }
@@ -48,24 +49,23 @@ const CardComments = ({ post, user }) => {
             <div className={classes.leftPart}>
               <img
                 src={
-                  user?.result._id === comment.commenterId
-                    ? user?.result.imageUrl
+                  comment.commenterImg
+                    ? comment.commenterImg
                     : "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
                 }
                 alt="commenter-pic"
               />
             </div>
-            <div className="right-part">
-              <div className="comment-header">
-                <div className="pseudo">
+            <div className={classes.rightPart}>
+              <div className={classes.commentHeader}>
+                <div className={classes.commentPseudo}>
                   <h3>{comment.commenterName}</h3>
                   {comment.commenterId !== user?.result._id &&
-                    {
-                      /* <FollowHandler
+                      <FollowHandler
                     idToFollow={comment.commenterId}
                     type={"card"}
-                  /> */
-                    }}
+                  />
+                    }
                 </div>
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>
@@ -75,8 +75,8 @@ const CardComments = ({ post, user }) => {
           </div>
         </div>
       ))}
-      ;
-      {user?.result._id && (
+      
+      {(user?.result._id || user?.result.googleId) && (
         <form onSubmit={handleComment} className={classes.commentForm}>
           <input
             type="text"

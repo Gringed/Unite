@@ -93,7 +93,7 @@ export const likePost = async (req, res) => {
 
 export const addComment = async (req, res) => {
   const { id } = req.params;
-  const { commenterId, commenterName, comment } = req.body;
+  const { commenterId, commenterName, comment, commenterImg } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send("Aucun post trouvé");
   const post = await PostMessage.findById(id);
@@ -101,6 +101,7 @@ export const addComment = async (req, res) => {
   post.comments.push({
     commenterId,
     commenterName,
+    commenterImg,
     comment,
     timestamp: new Date().getTime(),
   });
