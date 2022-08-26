@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import FileBase from "react-file-base64";
 import { createPost, getPosts, updatePost } from "../../../actions/posts";
 import useStyles from "./styles";
-import { Paper } from "@material-ui/core";
+import { Avatar, Paper } from "@material-ui/core";
 
 const NewPost = ({ currentId, setCurrentId, user }) => {
   const classes = useStyles();
@@ -93,8 +93,14 @@ const NewPost = ({ currentId, setCurrentId, user }) => {
   return (
     <div className={classes.postContainer}>
       <div className={classes.userInfo}>
-        <Link to="/profile">
-          <img src={user.result.imageUrl} alt="user-img" />
+        <Link to={'/profile/'+ (user.result._id ? user.result._id : user.result.googleId)}>
+          <Avatar
+            className={classes.avatar}
+            alt={user.result.name}
+            src={user.result.imageUrl}
+          >
+            {user.result.name.charAt(0)}
+          </Avatar>
         </Link>
       </div>
 

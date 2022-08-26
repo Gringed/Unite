@@ -6,18 +6,22 @@ export const getUser = (id) => async (dispatch) => {
         const { data } = await api.getUser(id);
         dispatch({
           type: "GET_USER",
-          payload: { post: data },
+          payload: { user: data },
         });
       } catch (error) {
         console.log(error.message);
       }
 }
 
-export const followUser = (followerId, idToFollow) => async(dispatch) => {
-    try {
-        
-    } catch (error) {
-        console.log(error.message)
-    }
+export const followUser = (id, follower) => async(dispatch) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  try {
+    const { data } = await api.followUser(id, follower);
+    dispatch({ type: "FOLLOW_USER", payload: data });
+    
+  } catch (error) {
+    console.log(error);
+  }
 }
+
 

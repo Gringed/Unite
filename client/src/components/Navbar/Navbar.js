@@ -49,7 +49,7 @@ const Navbar = () => {
         <Toolbar className={classes.toolbar}>
           {user ? (
             <div className={classes.profile}>
-              <Link to="/profile">
+              <Link to={"/profile/"+ (user.result._id ? user.result._id : user.result.googleId)}>
                 <Avatar
                   className={classes.avatar}
                   alt={user.result.name}

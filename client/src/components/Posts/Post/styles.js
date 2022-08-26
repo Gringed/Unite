@@ -21,9 +21,10 @@ export default makeStyles((theme) => ({
       "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
   },
   cardLeft: {
+    paddingTop: 5,
     "& img": {
-      height: 66,
-      width: 66,
+      height: 50,
+      width: 50,
       borderRadius: 50,
       boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
       objectFit: "cover",
@@ -49,7 +50,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     color: ColorGreen,
-    padding: "0 10pt",
+    padding: "10pt 10pt",
     alignItems: "center",
     fontSize: 15,
     [theme.breakpoints.down("sm")]: {
@@ -62,9 +63,20 @@ export default makeStyles((theme) => ({
       fontStyle: "italic",
       fontSize: "0.8rem",
     },
+    "& a": {
+      color: ColorGreen,
+      height: 'auto',
+      "&:hover":{
+        textDecoration: 'underline'
+      }
+    },
   },
   pseudo: {
     display: "flex",
+    "& h3": {
+      margin: 0,
+      fontSize: '0.9rem'
+    }
   },
   contenu: {
     padding: 10,
@@ -75,7 +87,6 @@ export default makeStyles((theme) => ({
   buttonContainer: {
     display: "flex",
     "&>div": {
-      padding: "10px 10px 5px 10px",
       marginLeft: 10,
       background: ColorPrim,
       borderRadius: 25,
@@ -136,7 +147,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     "& span": {
-      fontSize: "1rem",
+      fontSize: "0.7rem",
       transition: "all 0.3s",
       padding: "0 5px",
       color: "whitesmoke",
@@ -146,7 +157,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     "& span": {
-      fontSize: "1rem",
+      fontSize: "0.7rem",
       transition: "all 0.3s",
       padding: "0 5px",
       color: "whitesmoke",
@@ -159,7 +170,7 @@ export default makeStyles((theme) => ({
 
   // COMMENTAIRES DU POST
   commentForm: {
-    marginTop: "15px !important",
+    margin: "15px 0 !important",
     display: "flex",
     "& input[type='text']": {
       width: "100%",
@@ -231,22 +242,29 @@ export default makeStyles((theme) => ({
     },
   },
   rightPart: {
-    "& p":{
+    "& p": {
       wordBreak: "break-word",
-    }
+    },
   },
   commentHeader: {
     display: "flex",
     alignItems: "center",
-    color: ColorWhite
+    color: ColorWhite,
   },
   commentPseudo: {
     margin: "0 10px",
     display: "flex",
-    alignItems:"center",
-    "& span":{
+    alignItems: "center",
+    "& span": {
       fontSize: "0.9rem",
-      margin:"0 0 0 3px"
-    }
+      margin: "0 0 0 3px",
+    },
+  },
+  commentFooter: {
+    "& span": {
+      color: ColorWhite,
+      display: 'flex',
+      justifyContent: 'flex-end'
+    },
   },
 }));

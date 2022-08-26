@@ -10,7 +10,7 @@ import useStyles from "./styles";
 const CardComments = ({ post, user }) => {
   const [comments, setComments] = useState(post?.comments);
   const [comment, setComment] = useState("");
-
+  const caracmax = 250;
   // FAIRE USERS DATA ICI
 
   const classes = useStyles();
@@ -19,13 +19,13 @@ const CardComments = ({ post, user }) => {
 
   const handleComment = async (e) => {
     e.preventDefault();
-    if (comment) {
+    if (comment && comment.length <= caracmax) {
       const newComment = await dispatch(
         addComment(post._id, {
           comment: comment,
           commenterId: user?.result._id,
           commenterName: user?.result.name,
-          commenterImg: user?.result.imageUrl
+          commenterImg: user?.result.imageUrl,
         })
       );
       setComments(newComment);
@@ -41,7 +41,8 @@ const CardComments = ({ post, user }) => {
           <div ref={commentsRef}></div>
           <div
             className={
-              comment.commenterId === user?.result._id || comment.commenterId === user?.result.googleId
+              comment.commenterId === user?.result._id ||
+              comment.commenterId === user?.result.googleId
                 ? classes.commentContainerClient
                 : classes.commentContainer
             }
@@ -60,12 +61,13 @@ const CardComments = ({ post, user }) => {
               <div className={classes.commentHeader}>
                 <div className={classes.commentPseudo}>
                   <h3>{comment.commenterName}</h3>
-                  {comment.commenterId !== user?.result._id &&
-                      <FollowHandler
-                    idToFollow={comment.commenterId}
-                    type={"card"}
-                  />
-                    }
+                  {comment.commenterId !== user?.result._id && (
+                    <FollowHandler
+                      idToFollow={comment.commenterId}
+                      type={"card"}
+                      user={user}
+                    />
+                  )}
                 </div>
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>
@@ -75,23 +77,30 @@ const CardComments = ({ post, user }) => {
           </div>
         </div>
       ))}
-      
+
       {(user?.result._id || user?.result.googleId) && (
-        <form onSubmit={handleComment} className={classes.commentForm}>
-          <input
-            type="text"
-            name="text"
-            onChange={(e) => setComment(e.target.value)}
-            value={comment}
-            placeholder="Répondre . . ."
-          />
-          <br />
-          {comment && (
-            <button>
-              <RiSendPlaneFill />
-            </button>
-          )}
-        </form>
+        <div className={classes.commentFooter}>
+          <form onSubmit={handleComment} className={classes.commentForm}>
+            <input
+              type="text"
+              name="text"
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+              placeholder="Répondre . . ."
+            />
+            <br />
+            {comment && comment.length <= caracmax && (
+              <button>
+                <RiSendPlaneFill />
+              </button>
+            )}
+          </form>
+          <span className={classes.caracmax}>
+            {caracmax - comment.length < 0
+              ? "Trop de caractères"
+              : caracmax - comment.length + " caractères restants"}
+          </span>
+        </div>
       )}
     </div>
   );

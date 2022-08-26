@@ -24,9 +24,11 @@ const userSchema = mongoose.Schema(
     },
     followers: {
       type: [String],
+      default: []
     },
     following: {
       type: [String],
+      default: []
     },
     likes: {
       type: [String],

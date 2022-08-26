@@ -26,10 +26,11 @@ export default makeStyles((theme) => ({
   },
   userInfo: {
     marginBottom: 10,
-    "& img": {
-      borderRadius: 20,
-      height: 67,
-      width: 67,
+    width: "max-content",
+    "& div": {
+      borderRadius: 50,
+      height: 50,
+      width: 50,
       objectFit: "cover",
     },
   },

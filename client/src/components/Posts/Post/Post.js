@@ -8,7 +8,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import useStyles from "./styles";
 import * as Icons from "react-icons/ri";
 import { ButtonBase } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import FollowHandler from "../../Profile/FollowHandler";
 const Post = ({ post, setCurrentId, user }) => {
   const [showComments, setShowComments] = useState(false);
   const classes = useStyles();
@@ -20,23 +21,28 @@ const Post = ({ post, setCurrentId, user }) => {
     <>
       <li className={classes.cardContainer}>
         <div className={classes.cardLeft}>
-          <img
-            src={
-              post.avatar
-                ? post.avatar
-                : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-            }
-            alt="poster-pic"
-          />
+          <Link to={"/profile/" + post.creator}>
+            <img
+              src={
+                post.avatar
+                  ? post.avatar
+                  : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+              }
+              alt="poster-pic"
+            />
+          </Link>
         </div>
         <div className={classes.cardRight}>
           <div className={classes.cardHeader}>
-            <div className={classes.pseudo}>
-              <h3>{post.name}</h3>
-              {/* {post.creator !== userData._id && (
-                    <FollowHandler idToFollow={post.creator} type={"card"} />
-                  )} */}
-            </div>
+            <Link to={"/profile/" + post.creator}>
+              <div className={classes.pseudo}>
+                <h3>{post.name}</h3>
+                 {post?.creator !== user?.result._id && (
+                    post.creator.length < 24 ? null :
+                    <FollowHandler idToFollow={post.creator} type={"card"} user={user} />
+                  ) }
+              </div>
+            </Link>
             <span>{dayjs(post.createdAt).locale(timeParserFR).fromNow()}</span>
             {(post?.creator === user?.result._id ||
               post?.creator === user?.result.googleId ||

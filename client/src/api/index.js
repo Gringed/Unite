@@ -16,6 +16,7 @@ export const fetchPosts = () => API.get("/posts");
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}`);
 export const createPost = (newPost) => API.post("/posts", newPost);
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
+export const followUser = (id, follower) => API.patch(`/user/${id}/followUser`, follower);
 export const addComment = (id, comment, commenterId, commenterName, commenterImg) => API.patch(`/posts/${id}/addComment`, comment, commenterId, commenterName, commenterImg);
 export const updatePost = (id, updatedPost) =>
 API.patch(`/posts/${id}`, updatedPost);
