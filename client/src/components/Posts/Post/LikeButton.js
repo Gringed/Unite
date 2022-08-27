@@ -55,15 +55,7 @@ const LikeButton = ({ post, user }) => {
 
   return (
     <div className={classes.likeIcon}>
-      {!user ? (
-        <Popup
-          trigger={<Icons.RiHeartLine />}
-          position={["bottom center", "bottom right", "bottom left"]}
-          closeOnDocumentClick
-        >
-          <div>Connectez-vous pour aimer un post !</div>
-        </Popup>
-      ) : null}
+      
       <Likes className={classes.icon} />
     </div>
   );

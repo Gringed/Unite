@@ -52,7 +52,7 @@ const Dashboard = () => {
       <Grow in>
         <Container className={classes.container} maxWidth={"lg"}>
           <Grid container justifyContent="space-between" spacing={3}>
-            <Grid item xs={12} sm={7} md={8}>
+            <Grid item xs={12} sm={7} md={8} className={classes.grid}>
               <AppBar
                 position="static"
                 color="inherit"

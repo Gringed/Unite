@@ -66,6 +66,27 @@ export const signup = async (req, res) => {
   }
 };
 
+export const getUser = async (req, res) => {
+  const { id: _id } = req.params;
+  try {
+    const user = await User.findById(_id);
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {   
+    const users = await User.find();
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const followUser = async (req, res) => {
   const { id } = req.params;
   const {following} = req.body

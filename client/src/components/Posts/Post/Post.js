@@ -17,11 +17,12 @@ const Post = ({ post, setCurrentId, user }) => {
   dayjs.extend(relativeTime);
 
   const openPost = () => history.push(`/dashboard/${post._id}`);
+  const openProfil = () => history.push(`/profile/${post.creator}`);
   return (
     <>
       <li className={classes.cardContainer}>
         <div className={classes.cardLeft}>
-          <Link to={"/profile/" + post.creator}>
+          <ButtonBase onClick={openProfil}>
             <img
               src={
                 post.avatar
@@ -30,19 +31,20 @@ const Post = ({ post, setCurrentId, user }) => {
               }
               alt="poster-pic"
             />
-          </Link>
+          </ButtonBase>
         </div>
         <div className={classes.cardRight}>
           <div className={classes.cardHeader}>
             <Link to={"/profile/" + post.creator}>
               <div className={classes.pseudo}>
                 <h3>{post.name}</h3>
-                 {post?.creator !== user?.result._id && (
-                    post.creator.length < 24 ? null :
-                    <FollowHandler idToFollow={post.creator} type={"card"} user={user} />
-                  ) }
+                 
               </div>
             </Link>
+            {/* {post?.creator !== user?.result._id && (
+                    post.creator.length < 24 ? null :
+                    <FollowHandler idToFollow={post.creator} type={"card"} user={user} />
+                  ) } */}
             <span>{dayjs(post.createdAt).locale(timeParserFR).fromNow()}</span>
             {(post?.creator === user?.result._id ||
               post?.creator === user?.result.googleId ||

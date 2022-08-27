@@ -62,9 +62,11 @@ export default makeStyles((theme) => ({
   },
   pseudo: {
     display: "flex",
-    color: ColorWhite,
     fontSize: "1.1em",
     marginLeft: 10,
+    "& a":{
+      color: ColorWhite
+    }
   },
   contenu: {
     borderRadius: 20,
@@ -137,7 +139,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     "& span": {
-      fontSize: "1rem",
+      fontSize: "0.7rem",
       transition: "all 0.3s",
       padding: "0 5px",
       color: "whitesmoke",
@@ -147,7 +149,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     "& span": {
-      fontSize: "1rem",
+      fontSize: "0.7rem",
       transition: "all 0.3s",
       padding: "0 5px",
       color: "whitesmoke",
@@ -159,6 +161,10 @@ export default makeStyles((theme) => ({
   },
 
   // PARTIE POST SEUL
+  linkBack:{
+    display: 'flex',
+    width: 'max-content'
+  },
   back: {
     display: "flex",
     alignItems: "center",

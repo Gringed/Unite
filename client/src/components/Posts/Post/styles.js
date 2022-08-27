@@ -17,6 +17,9 @@ export default makeStyles((theme) => ({
     border: "1px solid #ffffff38",
     padding: 15,
     borderRadius: 20,
+    [theme.breakpoints.down("sm")]: {
+      padding: 5,
+    },
     boxShadow:
       "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
   },
@@ -34,9 +37,6 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: 18,
-    },
     "& p": {
       fontSize: "0.9rem",
       padding: 10,
@@ -53,9 +53,6 @@ export default makeStyles((theme) => ({
     padding: "10pt 10pt",
     alignItems: "center",
     fontSize: 15,
-    [theme.breakpoints.down("sm")]: {
-      margin: "12px 0 14px",
-    },
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
     },

@@ -31,7 +31,7 @@ const Posts = ({ currentId, setCurrentId, user }) => {
     <>
       <NewPost currentId={currentId} user={user} setCurrentId={setCurrentId} />
       {isLoading ? (
-        <CircularProgress />
+        <CircularProgress style={{color: '#90be3e'}} />
       ) : (
         <Grid className={classes.container}>
           <InfiniteScroll

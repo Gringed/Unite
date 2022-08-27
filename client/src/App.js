@@ -8,6 +8,7 @@ import {
 import Auth from "./components/Auth/Auth";
 import Dashboard from "./components/Dashboard/Dashboard";
 import PostDetails from "./components/PostDetails/PostDetails";
+import Profile from "./components/Profile/Profile";
 import useStyles from "./styles";
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
           <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/dashboard/search" component={Dashboard} />
           <Route path="/dashboard/:id" component={PostDetails} />
-          <Route path="/profile" component={Dashboard} />
+          <Route path="/profile/:id" component={Profile} />
           <Route path="*">
             <Redirect to="/" />
           </Route>

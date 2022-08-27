@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 const ColorGreen = "#90be3e";
 const ColorWhite = "whitesmoke";
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   appBarSearch: {
     margin: "0",
     display: "flex",
@@ -54,7 +54,15 @@ export default makeStyles(() => ({
   },
   container: {
     marginTop: "100px",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: '160px !important',
+    },
     fontSize: "10px",
+  },
+  grid:{
+    [theme.breakpoints.down("sm")]: {
+      padding: '5px !important',
+    },
   },
   hashtag: {
     color: "red",

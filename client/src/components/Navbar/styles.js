@@ -16,7 +16,6 @@ export default makeStyles((theme) => ({
     padding: "0 80px",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
-      padding: 0,
     },
   },
   appBarContainer: {
@@ -25,6 +24,10 @@ export default makeStyles((theme) => ({
     width: "100%",
     maxWidth: "1280px",
     justifyContent: "space-between",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
   },
   heading: {
     color: "white",
@@ -44,10 +47,9 @@ export default makeStyles((theme) => ({
   profile: {
     display: "flex",
     justifyContent: "space-between",
-    width: 350,
     alignItems: "center",
     [theme.breakpoints.down("sm")]: {
-      justifyContent: "space-evenly",
+      justifyContent: "end",
     },
     "&>a": {
       textDecoration: "none",

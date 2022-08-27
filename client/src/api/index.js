@@ -12,6 +12,7 @@ API.interceptors.request.use((req) => {
 });
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const getUser = (id) => API.get(`/user/${id}`);
+export const getUsers = () => API.get(`/user`);
 export const fetchPosts = () => API.get("/posts");
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}`);
 export const createPost = (newPost) => API.post("/posts", newPost);

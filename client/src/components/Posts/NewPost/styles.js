@@ -13,9 +13,7 @@ export default makeStyles((theme) => ({
     borderLeft: `1px solid ${ColorWhite}`,
     borderRight: `1px solid ${ColorWhite}`,
     background: ColorPrim,
-    [theme.breakpoints.down("sm")]: {
-      margin: "55px 0 0 0",
-    },
+    
     boxShadow:
       "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
   },
@@ -121,6 +119,8 @@ export default makeStyles((theme) => ({
   footerForm: {
     display: "flex",
     justifyContent: "space-between",
+    alignItems: 'center',
+    flexWrap: 'wrap',
     margin: "0 auto",
     width: "100%",
     "& p": {
@@ -165,6 +165,9 @@ export default makeStyles((theme) => ({
   },
 
   btnSend: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
     "& button": {
       fontWeight: 600,
       padding: "10px 20px",
@@ -196,7 +199,7 @@ export default makeStyles((theme) => ({
   caracmax: {
     color: "whitesmoke",
     fontSize: "0.7rem",
-    margin: 20,
+    margin: '20px 5px',
   },
   hashtag: {
     color: ColorGreen,
