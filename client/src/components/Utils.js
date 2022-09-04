@@ -14,6 +14,17 @@ export const dateParse = (num) => {
   let date = new Date(dateparser).toLocaleDateString("fr-FR", options);
   return date.toString();
 };
+export const birthdayParse = (num) => {
+  let options = { 
+    year: "numeric",
+    month: "short",
+  };
+
+  let dateparser = Date.parse(num);
+
+  let date = new Date(dateparser).toLocaleDateString("fr-FR", options);
+  return date.toString();
+};
 
 export const timestampParser = (num) => {
   let options = {

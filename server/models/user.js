@@ -20,7 +20,12 @@ const userSchema = mongoose.Schema(
     },
     bio: {
       type: String,
-      max: 1024,
+      max: 150,
+    },
+    birthday: {
+      type: Date,
+      trim: true,
+      default: '2018-12-08T16:46:12.274Z'
     },
     followers: {
       type: [String],

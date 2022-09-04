@@ -5,7 +5,7 @@ export const getUsers = () => async (dispatch) => {
     const { data } = await api.getUsers();
     dispatch({
       type: "GET_USERS",
-      payload: data,
+      payload: [data],
     });
   } catch (error) {
     console.log(error.message);
@@ -29,6 +29,15 @@ export const followUser = (id, follower) => async (dispatch) => {
   try {
     const { data } = await api.followUser(id, follower);
     dispatch({ type: "FOLLOW_USER", payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProfile = (id, user) => async (dispatch) => {
+  try {
+    const { data } = await api.updateProfile(id, user);
+    dispatch({ type: "UPDATE_PROFILE", payload: data });
   } catch (error) {
     console.log(error);
   }

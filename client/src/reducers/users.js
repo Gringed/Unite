@@ -7,10 +7,17 @@ export default (state = { users: [] }, action) => {
     case "FOLLOW_USER":
       return {
         ...state,
-        users: state.users.map((follow) =>
-          follow._id === action.payload._id ? action.payload : follow
+        users: state.users.map((user) =>
+          user._id === action.payload._id ? action.payload : user
         ),
       };
+    case "UPDATE_PROFILE":
+      return  {
+        ...state,
+        users: state.users.map((user) =>
+          user._id === action.payload._id ? action.payload : user
+        ),
+      }
     default:
       return state;
   }

@@ -9,10 +9,10 @@ import useStyles from "./styles";
 const LikeButton = ({ post, user }) => {
   const [liked, setLiked] = useState(post?.likes);
   const classes = useStyles();
-
+  const userInfo = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
 
-  const userId = user?.result.googleId || user?.result?._id;
+  const userId = userInfo?.result.googleId || user?._id;
   const hasLikedPost = post.likes.find((like) => like === userId);
 
   const handleLike = async () => {

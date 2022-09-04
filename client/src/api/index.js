@@ -21,6 +21,8 @@ export const followUser = (id, follower) => API.patch(`/user/${id}/followUser`, 
 export const addComment = (id, comment, commenterId, commenterName, commenterImg) => API.patch(`/posts/${id}/addComment`, comment, commenterId, commenterName, commenterImg);
 export const updatePost = (id, updatedPost) =>
 API.patch(`/posts/${id}`, updatedPost);
+export const updateProfile = (id, updatedProfile) =>
+API.patch(`/user/${id}`, updatedProfile);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 
 export const signIn = (formData) => API.post("/user/signin", formData);

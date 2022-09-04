@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Grow, Grid, AppBar } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Navbar from "../Navbar/Navbar";
@@ -9,6 +9,7 @@ import Posts from "../Posts/Posts";
 import useStyles from "./styles";
 
 import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { getUser, getUsers } from "../../actions/user";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -18,7 +19,8 @@ const Dashboard = () => {
   const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const userInfo = JSON.parse(localStorage.getItem("profile"));
+  const {user, users} = useSelector((state) => state.users);
   const query = useQuery();
   const history = useHistory();
   const [search, setSearch] = useState("");
@@ -26,6 +28,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getPosts());
+    userInfo && dispatch(getUser(userInfo.result._id))
+    dispatch(getUsers())
   }, [currentId, dispatch]);
 
   const searchPost = () => {
@@ -46,7 +50,7 @@ const Dashboard = () => {
   /*  const handleAdd = (tag) => setTags([...tags, tag]);
   const handleDelete = (tagToDelete) =>
     setTags(tags.filter((tag) => tag !== tagToDelete)); */
-  return user ? (
+  return userInfo ? (
     <>
       <Navbar />
       <Grow in>
@@ -70,6 +74,7 @@ const Dashboard = () => {
               </AppBar>
               <Posts
                 user={user}
+                users={users}
                 currentId={currentId}
                 setCurrentId={setCurrentId}
               />

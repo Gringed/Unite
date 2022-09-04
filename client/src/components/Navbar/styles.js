@@ -88,6 +88,9 @@ export default makeStyles((theme) => ({
   brandContainer: {
     display: "flex",
     alignItems: "center",
+    "& h1":{
+      margin: '12px 0'
+    },
   },
   avatar: {
     color: theme.palette.getContrastText(ColorPrim),

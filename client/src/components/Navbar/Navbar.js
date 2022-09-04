@@ -5,11 +5,13 @@ import logo from "../../images/icon.png";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import decode from "jwt-decode";
+import { getUser } from "../../actions/user";
 const Navbar = () => {
   const classes = useStyles();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const userInfo = JSON.parse(localStorage.getItem("profile"));
+  const {user} = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -17,20 +19,21 @@ const Navbar = () => {
   const logout = () => {
     dispatch({ type: "LOGOUT" });
     history.go();
-    setUser(null);
+    localStorage.clear()
   };
 
   useEffect(() => {
-    const token = user?.token;
-
+    const token = userInfo?.token;
     if (token) {
       const decodedToken = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         logout();
         window.alert("Vous avez été déconnecté, veuillez vous reconnecter");
+        window.reload();
       }
     }
-  }, [location, logout, user.token]);
+    dispatch(getUser(userInfo.result._id))
+  }, [location, userInfo.token, dispatch]);
   return (
     <AppBar className={classes.appBar}>
       <div className={classes.appBarContainer}>
@@ -49,15 +52,20 @@ const Navbar = () => {
         <Toolbar className={classes.toolbar}>
           {user ? (
             <div className={classes.profile}>
-              <Link to={"/profile/"+ (user.result._id ? user.result._id : user.result.googleId)}>
+              <Link
+                to={
+                  "/profile/" +
+                  (user._id ? user._id : user.result.googleId)
+                }
+              >
                 <Avatar
                   className={classes.avatar}
-                  alt={user.result.name}
-                  src={user.result.imageUrl}
+                  alt={user.name}
+                  src={user.imageUrl}
                 >
-                  {user.result.name.charAt(0)}
+                  {user.name.charAt(0)}
                 </Avatar>
-                <p className={classes.userName}>{user.result.name}</p>
+                <p className={classes.userName}>{user.name}</p>
               </Link>
               <Button className={classes.logout} onClick={logout}>
                 Déconnexion

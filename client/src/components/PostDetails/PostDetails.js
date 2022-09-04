@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Grid, Grow } from "@material-ui/core";
+import { Container, Grid, Grow, LinearProgress } from "@material-ui/core";
 import Fancybox from "../FancyBox";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -164,7 +164,7 @@ const PostDetails = () => {
                   </div>
                 </div>
               ) : (
-                <CircularProgress style={{color: '#90be3e'}} />
+                <LinearProgress className={classes.progressBar} />
               )}
             </Grid>
             <Grid item xs={12} sm={5} md={4}>

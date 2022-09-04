@@ -109,3 +109,19 @@ export const followUser = async (req, res) => {
 
   res.json(updatedPost);
 };
+
+export const updatedProfile = async (req, res) => {
+  const { id: _id } = req.params;
+  const user = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("Aucun utilisateur trouvé");
+
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    { ...user, _id },
+    { new: true }
+  );
+
+  res.json(updatedUser);
+};

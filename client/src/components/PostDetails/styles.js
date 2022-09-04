@@ -5,9 +5,18 @@ const ColorGreen = "#90be3e";
 const ColorWhite = "whitesmoke";
 
 export default makeStyles((theme) => ({
+  progressBar:{
+    background: ColorGreen,
+    "&>div":{
+      background: ColorPrim
+    }
+  },
   container: {
     marginTop: "100px",
     fontSize: "10px",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "160px !important",
+    },
   },
   cardContainer: {
     display: "flex",
@@ -24,7 +33,7 @@ export default makeStyles((theme) => ({
   cardHeader: {
     display: "flex",
     alignItems: "center",
-
+    justifyContent: "space-between",
     "& img": {
       height: 55,
       width: 55,
@@ -64,6 +73,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     fontSize: "1.1em",
     marginLeft: 10,
+    flex: 'auto',
     "& a":{
       color: ColorWhite
     }
@@ -76,9 +86,6 @@ export default makeStyles((theme) => ({
     },
   },
   buttonContainer: {
-    display: "flex",
-    width: "75%",
-    justifyContent: "flex-end",
     "&>div": {
       padding: "10px 10px 5px 10px",
       marginLeft: 10,

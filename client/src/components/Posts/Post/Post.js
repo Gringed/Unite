@@ -10,8 +10,9 @@ import * as Icons from "react-icons/ri";
 import { ButtonBase } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import FollowHandler from "../../Profile/FollowHandler";
-const Post = ({ post, setCurrentId, user }) => {
+const Post = ({ post, setCurrentId, user, users }) => {
   const [showComments, setShowComments] = useState(false);
+  const userInfo = JSON.parse(localStorage.getItem("profile"));
   const classes = useStyles();
   const history = useHistory();
   dayjs.extend(relativeTime);
@@ -25,9 +26,17 @@ const Post = ({ post, setCurrentId, user }) => {
           <ButtonBase onClick={openProfil}>
             <img
               src={
-                post.avatar
-                  ? post.avatar
-                  : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                users[0]
+                  ? users[0]
+                      .map((user) => {
+                        if (user._id === post.creator) {
+                          return user.imageUrl;
+                        } else {
+                          return null;
+                        }
+                      })
+                      .join("")
+                  : post.avatar
               }
               alt="poster-pic"
             />
@@ -38,7 +47,6 @@ const Post = ({ post, setCurrentId, user }) => {
             <Link to={"/profile/" + post.creator}>
               <div className={classes.pseudo}>
                 <h3>{post.name}</h3>
-                 
               </div>
             </Link>
             {/* {post?.creator !== user?.result._id && (
@@ -46,11 +54,16 @@ const Post = ({ post, setCurrentId, user }) => {
                     <FollowHandler idToFollow={post.creator} type={"card"} user={user} />
                   ) } */}
             <span>{dayjs(post.createdAt).locale(timeParserFR).fromNow()}</span>
-            {(post?.creator === user?.result._id ||
-              post?.creator === user?.result.googleId ||
-              user?.result.isAdmin) && (
+            {(post?.creator === user?._id ||
+              post?.creator === userInfo?.result.googleId ||
+              user?.isAdmin) && (
               <div className={classes.buttonContainer}>
-                <div onClick={() => setCurrentId(post._id)}>
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentId(post._id);
+                  }}
+                >
                   <Icons.RiEdit2Fill className="icon" />
                 </div>
                 <DeleteCard id={post._id} />
