@@ -19,7 +19,7 @@ import { RiArrowGoBackFill, RiCalendar2Line } from "react-icons/ri";
 import { FaBaby, FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useParams } from "react-router-dom";
-import { getUser, updateProfile } from "../../actions/user";
+import { getUser, getUsers, updateProfile } from "../../actions/user";
 import FileBase from "react-file-base64";
 import Navbar from "../Navbar/Navbar";
 import { birthdayParse, dateParse } from "../Utils";
@@ -52,19 +52,19 @@ const Profile = () => {
       })
     );
     handleClose();
-    dispatch(getPosts());
+    dispatch(getUser(id));
+    dispatch(getPosts())
   };
 
   useEffect(() => {
     if (id.length == 24) {
+      setGoogleAccount(false);
       dispatch(getUser(id));
       dispatch(getPosts());
-      setGoogleAccount(false);
     } else {
       setGoogleAccount(true);
     }
-  }, [users]);
-
+  }, [id]);
   return userInfo ? (
     <div>
       <Navbar />
@@ -91,6 +91,7 @@ const Profile = () => {
                     <div className={classes.profileInfos}>
                       <div className={classes.profileAvatar}>
                         <div className={classes.profileAvatarImg}>
+                          {/* MAP ICI LES DONNES COMME POST */}
                           <img src={user.imageUrl} alt={user.imageUrl} />
                         </div>
                         {userInfo.result._id === user._id ? (
@@ -169,6 +170,7 @@ const Profile = () => {
                                 <Post
                                   post={post}
                                   user={user}
+                                  users={users}
                                   currentId={post._id}
                                 />
                               </Grid>

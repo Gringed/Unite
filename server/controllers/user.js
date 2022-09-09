@@ -67,9 +67,9 @@ export const signup = async (req, res) => {
 };
 
 export const getUser = async (req, res) => {
-  const { id: _id } = req.params;
+  const { id } = req.params;
   try {
-    const user = await User.findById(_id);
+    const user = await User.findById(id);
 
     res.status(200).json(user);
   } catch (error) {

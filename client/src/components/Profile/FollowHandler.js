@@ -6,16 +6,16 @@ import Popup from "reactjs-popup";
 
 const FollowHandler = ({ idToFollow, type, user }) => {
   const [isFollowed, setIsFollowed] = useState(false);
-  const userData = useSelector((state) => state.users);
+  
   const dispatch = useDispatch();
 
-
-  const hasLikedPost = user.result.following.find(
+  console.log(user)
+  const hasLikedPost = user?.following.find(
     (like) => like === idToFollow
   );
 
   const handleFollow = async () => {
-    dispatch(followUser(userData._id, { following: idToFollow }));
+    dispatch(followUser(user?._id, { following: idToFollow }));
 
     if (hasLikedPost) {
       setIsFollowed(true);
@@ -24,22 +24,22 @@ const FollowHandler = ({ idToFollow, type, user }) => {
     }
   };
   useEffect(() => {
-    if ((userData.following)) {
-      if (userData.following.includes(idToFollow)) {
+    if ((user?.following)) {
+      if (user?.following.includes(idToFollow)) {
         setIsFollowed(true);
       } else setIsFollowed(false);
     }
-  }, [userData, idToFollow]);
+  }, [user, idToFollow]);
 
   return (
     <>
-      {isFollowed && (userData) && (
+      {isFollowed && (user) && (
         <span onClick={handleFollow}>
           {type === "suggestion" && <button className="unfollow-btn">Abonné</button>}
           {type === "card" && <Icons.RiCheckboxCircleFill className="icon"/>}
         </span>
       )}
-      {isFollowed === false && (userData) && (
+      {isFollowed === false && (user) && (
         <span onClick={handleFollow}>
           {type === "suggestion" && <button className="follow-btn">Suivre</button>}
           {type === "card" && <Icons.RiCheckboxCircleLine className="icon"/>}

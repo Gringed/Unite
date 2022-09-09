@@ -1,5 +1,9 @@
-export default (state = { users: [] }, action) => {
+export default (state = {loading: true, users: [] }, action) => {
   switch (action.type) {
+    case "START_LOADING":
+      return { ...state, loading: true };
+      case "END_LOADING":
+      return { ...state, loading: false };
     case "GET_USERS":
       return { ...state, users: action.payload };
     case "GET_USER":

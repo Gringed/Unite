@@ -13,16 +13,18 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import LikeButton from "../Posts/Post/LikeButton";
 import CardComments from "../Posts/Post/CardComments";
 import * as Icons from "react-icons/ri";
+import { getUser, getUsers } from "../../actions/user";
 
 const PostDetails = () => {
   const [showComments, setShowComments] = useState(false);
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const userInfo = JSON.parse(localStorage.getItem("profile"));
   const { post, posts } = useSelector((state) => state.posts);
+  const { user, users } = useSelector((state) => state.users);
   const [liked, setLiked] = useState(post?.likes);
   const dispatch = useDispatch();
   const classes = useStyles();
   const { id } = useParams();
-  const userId = user?.result.googleId || user?.result?._id;
+  const userId = userInfo?.result.googleId || user?._id;
   const hasLikedPost = post?.likes.includes((like) => like === userId);
   const handleLike = async () => {
     dispatch(likePost(post._id));
@@ -36,8 +38,10 @@ const PostDetails = () => {
 
   useEffect(() => {
     dispatch(getPost(id));
+    userInfo && dispatch(getUser(userInfo.result._id))
+    dispatch(getUsers());
   }, [posts]);
-  return user ? (
+  return userInfo ? (
     <>
       <Navbar />
       <Grow in>
@@ -54,14 +58,25 @@ const PostDetails = () => {
                 <div className={classes.cardContainer}>
                   <div className={classes.cardHeader}>
                     <Link to={"/profile/" + post.creator}>
-                      <img
-                        src={
-                          post.avatar
-                            ? post.avatar
-                            : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                        }
-                        alt="poster-pic"
-                      />
+                      {post.creator.length == 24 ? (
+                        <img
+                          src={
+                            users &&
+                            users[0]
+                              ?.map((user) => {
+                                if (user._id === post.creator) {
+                                  return user.imageUrl;
+                                } else {
+                                  return null;
+                                }
+                              })
+                              .join("")
+                          }
+                          alt="poster-pic"
+                        />
+                      ) : (
+                        <img src={post.avatar} alt="" />
+                      )}
                     </Link>
                     <div className={classes.pseudo}>
                       <Link to={"/profile/" + post.creator}>
@@ -71,9 +86,9 @@ const PostDetails = () => {
                     {/* {post.creator !== userData._id && (
       <FollowHandler idToFollow={post.creator} type={"card"} />
     )} */}
-                    {(post?.creator === user?.result._id ||
-                      post?.creator === user?.result.googleId ||
-                      user?.result.isAdmin) && (
+                    {(post?.creator === userInfo?.result._id ||
+                      post?.creator === userInfo?.result.googleId ||
+                      userInfo?.result.isAdmin) && (
                       <div className={classes.buttonContainer}>
                         {/* <div onClick={() => setCurrentId(post._id)}>
                               <Icons.RiEdit2Fill className="icon" />
@@ -160,7 +175,9 @@ const PostDetails = () => {
                       </div>
                       <Icons.RiShareForwardFill className={classes.icon} />
                     </div>
-                    {showComments && <CardComments post={post} user={user} />}
+                    {showComments && (
+                      <CardComments post={post} users={users} user={user} />
+                    )}
                   </div>
                 </div>
               ) : (

@@ -24,22 +24,26 @@ const Post = ({ post, setCurrentId, user, users }) => {
       <li className={classes.cardContainer}>
         <div className={classes.cardLeft}>
           <ButtonBase onClick={openProfil}>
-            <img
-              src={
-                users[0]
-                  ? users[0]
-                      .map((user) => {
-                        if (user._id === post.creator) {
-                          return user.imageUrl;
-                        } else {
-                          return null;
-                        }
-                      })
-                      .join("")
-                  : post.avatar
-              }
-              alt="poster-pic"
-            />
+            {post.creator.length == 24  ? (
+              
+              <img
+                src={users &&
+                  users[0]
+                    ?.map((user) => {
+                      if (user._id === post.creator) {
+                        return user.imageUrl;
+                      } else {
+                        return null;
+                      }
+                    })
+                    .join("")
+                }
+                alt="poster-pic"
+              />
+              
+            ) : (
+              <img src={post.avatar} alt="" />
+            )}
           </ButtonBase>
         </div>
         <div className={classes.cardRight}>
@@ -115,7 +119,9 @@ const Post = ({ post, setCurrentId, user, users }) => {
             <LikeButton post={post} user={user} />
             <Icons.RiShareForwardFill className={classes.icon} />
           </div>
-          {showComments && <CardComments post={post} user={user} />}
+          {showComments && (
+            <CardComments post={post} users={users} user={user} />
+          )}
         </div>
       </li>
     </>

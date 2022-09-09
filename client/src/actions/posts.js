@@ -40,7 +40,13 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     console.log(error.message);
   }
 };
-
+export const getTrends = (sortedArray)  => async (dispatch) => {
+  try {
+    dispatch({ type: "GET_TRENDS", payload: sortedArray  });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const createPost = (post) => async (dispatch) => {
   try {
     

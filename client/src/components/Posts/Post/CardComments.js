@@ -7,8 +7,9 @@ import { timestampParser } from "../../Utils";
 /* import EditDeleteCom from "./EditDeleteCom"; */
 import useStyles from "./styles";
 
-const CardComments = ({ post, user }) => {
+const CardComments = ({ post, user, users }) => {
   const [comments, setComments] = useState(post?.comments);
+  const userInfo = JSON.parse(localStorage.getItem("profile"));
   const [comment, setComment] = useState("");
   const caracmax = 250;
   // FAIRE USERS DATA ICI
@@ -23,9 +24,9 @@ const CardComments = ({ post, user }) => {
       const newComment = await dispatch(
         addComment(post._id, {
           comment: comment,
-          commenterId: user?.result._id,
-          commenterName: user?.result.name,
-          commenterImg: user?.result.imageUrl,
+          commenterId: userInfo?.result._id,
+          commenterName: userInfo?.result.name,
+          commenterImg: userInfo?.result.imageUrl,
         })
       );
       setComments(newComment);
@@ -41,27 +42,49 @@ const CardComments = ({ post, user }) => {
           <div ref={commentsRef}></div>
           <div
             className={
-              comment.commenterId === user?.result._id ||
-              comment.commenterId === user?.result.googleId
+              comment.commenterId === user?._id ||
+              comment.commenterId === userInfo?.result.googleId
                 ? classes.commentContainerClient
                 : classes.commentContainer
             }
           >
             <div className={classes.leftPart}>
-              <img
-                src={
-                  comment.commenterImg
-                    ? comment.commenterImg
-                    : "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-                }
-                alt="commenter-pic"
-              />
+              {comment.commenterId?.length == 24 ? (
+                <img
+                  src={users[0]
+                    .map((user) => {
+                      if (user._id === comment.commenterId) {
+                        return user.imageUrl;
+                      } else {
+                        return null;
+                      }
+                    })
+                    .join("")}
+                  alt="poster-pic"
+                />
+              ) : (
+                <img src={comment.commenterImg} alt="poster-pic" />
+              )}
             </div>
             <div className={classes.rightPart}>
               <div className={classes.commentHeader}>
                 <div className={classes.commentPseudo}>
-                  <h3>{comment.commenterName}</h3>
-                  {comment.commenterId !== user?.result._id && (
+                  {comment.commenterId?.length == 24 ? (
+                    <h3>
+                      {users[0]
+                        .map((user) => {
+                          if (user._id === comment.commenterId) {
+                            return user.name;
+                          } else {
+                            return null;
+                          }
+                        })
+                        .join("")}
+                    </h3>
+                  ) : (
+                    <h3>{comment.commenterName}</h3>
+                  )}
+                  {comment.commenterId !== user?._id && (
                     <FollowHandler
                       idToFollow={comment.commenterId}
                       type={"card"}
@@ -78,7 +101,7 @@ const CardComments = ({ post, user }) => {
         </div>
       ))}
 
-      {(user?.result._id || user?.result.googleId) && (
+      {(user._id || userInfo?.result.googleId) && (
         <div className={classes.commentFooter}>
           <form onSubmit={handleComment} className={classes.commentForm}>
             <input

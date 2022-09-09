@@ -10,6 +10,7 @@ import useStyles from "./styles";
 
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { getUser, getUsers } from "../../actions/user";
+import Trends from "../Trends/Trends";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -81,7 +82,7 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12} sm={5} md={4}>
               {/* ICI REMPLACER FORM PAR LES TENDANCES */}
-              <Form />
+              <Trends />
             </Grid>
           </Grid>
         </Container>

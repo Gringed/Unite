@@ -81,6 +81,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     textAlign: "center",
+    fontFamily: "Montserrat",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
