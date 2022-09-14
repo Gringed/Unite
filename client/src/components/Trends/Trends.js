@@ -2,17 +2,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { dateParse } from "../Utils";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { getPosts, getTrends } from "../../actions/posts";
 import useStyles from "./styles";
 import LikeButton from "../Posts/Post/LikeButton";
+import { getUsers } from "../../actions/user";
 
 const Trends = () => {
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, post } = useSelector((state) => state.posts);
   const { user, users } = useSelector((state) => state.users);
   const trends = useSelector((state) => state.trends);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     if (posts[0]) {
@@ -22,9 +24,9 @@ const Trends = () => {
       });
       sortedArray.length = 4;
       dispatch(getTrends(sortedArray));
-      
     }
-  }, [posts, dispatch]);
+    dispatch(getUsers());
+  }, [posts, post, dispatch]);
 
   return (
     <div className={classes.trendingContainer}>
@@ -33,23 +35,32 @@ const Trends = () => {
         {trends.length &&
           trends.map((post) => {
             return (
-              <li key={post._id}>
+              <li
+                key={post._id}
+                onClick={() => {
+                  history.push(`/dashboard/${post._id}`);
+                  window.location.reload();
+                }}
+              >
                 <div>
-                  {post.avatar && <img src={post.avatar} alt="post-pic" />}
-                  {!post.avatar && (
+                  {post.creator.length == 24 ? (
                     <img
                       src={
-                        users[0] &&
-                        users
-                          .map((user) => {
-                            if (user._id === post.posterId) {
-                              return user.avatar;
-                            } else return null;
+                        users &&
+                        users[0]
+                          ?.map((user) => {
+                            if (user._id === post.creator) {
+                              return user.imageUrl;
+                            } else {
+                              return null;
+                            }
                           })
                           .join("")
                       }
-                      alt="profil-pic"
+                      alt="poster-pic"
                     />
+                  ) : (
+                    <img src={post.avatar} alt="" />
                   )}
                 </div>
                 <div className={classes.trendContent}>
@@ -61,10 +72,19 @@ const Trends = () => {
                         className={classes.cardPic}
                       />
                     )}
-                    {post.message}
+                    {post.message.split(" ").map((str) => {
+                      if (str.startsWith("#")) {
+                        return (
+                          <span key={str} className={classes.hashtag}>
+                            {str + " "}
+                          </span>
+                        );
+                      }
+                      return str + " ";
+                    })}
                   </div>
                   <div className={classes.trendDetails}>
-                  <LikeButton post={post} user={user} />
+                    <LikeButton post={post} user={user} />
                   </div>
                 </div>
               </li>

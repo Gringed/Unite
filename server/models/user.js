@@ -25,7 +25,6 @@ const userSchema = mongoose.Schema(
     birthday: {
       type: Date,
       trim: true,
-      default: '2018-12-08T16:46:12.274Z'
     },
     followers: {
       type: [String],

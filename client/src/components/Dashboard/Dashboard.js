@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Navbar from "../Navbar/Navbar";
-import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
 import useStyles from "./styles";
 
@@ -81,7 +80,6 @@ const Dashboard = () => {
               />
             </Grid>
             <Grid item xs={12} sm={5} md={4}>
-              {/* ICI REMPLACER FORM PAR LES TENDANCES */}
               <Trends />
             </Grid>
           </Grid>

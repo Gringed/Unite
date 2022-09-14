@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useDispatch } from "react-redux";
-import { likePost } from "../../../actions/posts";
+import { getPost, getPosts, getTrends, likePost } from "../../../actions/posts";
 import * as Icons from "react-icons/ri";
 import useStyles from "./styles";
+import { useEffect } from "react";
 const LikeButton = ({ post, user }) => {
   const [liked, setLiked] = useState(post?.likes);
   const classes = useStyles();
@@ -17,14 +18,15 @@ const LikeButton = ({ post, user }) => {
 
   const handleLike = async () => {
     dispatch(likePost(post._id));
-
     if (hasLikedPost) {
       setLiked(post.likes.filter((id) => id !== userId));
     } else {
       setLiked([...post.likes, userId]);
     }
   };
-
+  useEffect(() => {
+    
+  }, [])
   const Likes = () => {
     if (liked.length > 0) {
       return liked.find((like) => like === userId) ? (

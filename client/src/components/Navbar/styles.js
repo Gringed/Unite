@@ -89,6 +89,7 @@ export default makeStyles((theme) => ({
   brandContainer: {
     display: "flex",
     alignItems: "center",
+    padding: '0 24px',
     "& h1":{
       margin: '12px 0'
     },

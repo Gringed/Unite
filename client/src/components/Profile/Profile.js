@@ -26,6 +26,7 @@ import { birthdayParse, dateParse } from "../Utils";
 import useStyles from "./styles";
 import Post from "../Posts/Post/Post";
 import { getPosts } from "../../actions/posts";
+import Trends from "../Trends/Trends";
 const Profile = () => {
   const userInfo = JSON.parse(localStorage.getItem("profile"));
   const { user, users } = useSelector((state) => state.users);
@@ -134,7 +135,7 @@ const Profile = () => {
                       <div className={classes.profileInfosOthers}>
                         <span>
                           <FaBaby />
-                          <p>{dateParse(user.birthday).split(",")[0]}</p>
+                          <p>{user.birthday ? dateParse(user.birthday).split(",")[0] : "Date de naissance inconnue"}</p>
                         </span>
                         <span>
                           <RiCalendar2Line />
@@ -242,6 +243,11 @@ const Profile = () => {
               ) : (
                 <LinearProgress className={classes.progressBar} />
               )}
+            </Grid>
+            <Grid item xs={12} sm={5} md={4}>
+              {/* ICI REMPLACER FORM PAR LES TENDANCES */}
+              <Trends />
+              
             </Grid>
           </Grid>
         </Container>

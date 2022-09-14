@@ -3,15 +3,14 @@ import React from "react";
 import useStyles from "./styles";
 import logo from "../../images/icon.png";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import decode from "jwt-decode";
-import { getUser, getUsers } from "../../actions/user";
+import { getUsers } from "../../actions/user";
 const Navbar = () => {
   const classes = useStyles();
   const userInfo = JSON.parse(localStorage.getItem("profile"));
-  const {user, users} = useSelector((state) => state.users);
+  const {users} = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();

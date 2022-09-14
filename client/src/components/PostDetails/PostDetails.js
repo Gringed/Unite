@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import useStyles from "./styles";
-import { getPost, likePost } from "../../actions/posts";
-import Form from "../Form/Form";
+import { getPost, getPosts, likePost } from "../../actions/posts";
 import { dateParse } from "../Utils";
 import DeleteCard from "../Posts/Post/DeleteCard";
 import { RiArrowGoBackFill } from "react-icons/ri";
@@ -14,6 +13,7 @@ import LikeButton from "../Posts/Post/LikeButton";
 import CardComments from "../Posts/Post/CardComments";
 import * as Icons from "react-icons/ri";
 import { getUser, getUsers } from "../../actions/user";
+import Trends from "../Trends/Trends";
 
 const PostDetails = () => {
   const [showComments, setShowComments] = useState(false);
@@ -28,7 +28,7 @@ const PostDetails = () => {
   const hasLikedPost = post?.likes.includes((like) => like === userId);
   const handleLike = async () => {
     dispatch(likePost(post._id));
-
+    
     if (hasLikedPost) {
       setLiked(post.likes.filter((id) => id !== userId));
     } else {
@@ -40,7 +40,8 @@ const PostDetails = () => {
     dispatch(getPost(id));
     userInfo && dispatch(getUser(userInfo.result._id))
     dispatch(getUsers());
-  }, [posts]);
+    dispatch(getPosts())
+  }, [dispatch]);
   return userInfo ? (
     <>
       <Navbar />
@@ -185,9 +186,8 @@ const PostDetails = () => {
               )}
             </Grid>
             <Grid item xs={12} sm={5} md={4}>
-              {/* ICI REMPLACER FORM PAR LES TENDANCES 
-              <PostByCreator />*/}
-              <Form />
+              <Trends />
+              FOLLOWERS SECTION
             </Grid>
           </Grid>
         </Container>

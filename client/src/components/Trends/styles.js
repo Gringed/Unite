@@ -11,11 +11,10 @@ export default makeStyles((theme) => ({
     borderRadius: 20,
     marginBottom: 14,
     padding: 15,
-    width: "22rem",
     "& h1": {
       fontSize: "1.3rem",
       color: ColorGreen,
-      marginBottom: 12,
+      margin: 5,
     },
     "& ul": {
         padding: 0,
@@ -32,6 +31,7 @@ export default makeStyles((theme) => ({
         color: ColorWhite,
         "&:hover": {
           boxShadow: "0 0 0 5px" + ColorGreen,
+          cursor: "pointer"
         },
         "& img, iframe":{
             height: 56,
@@ -63,5 +63,9 @@ export default makeStyles((theme) => ({
   },
   trendDetails:{
     
-  }
+  },
+  hashtag: {
+    color: ColorGreen + "!important",
+    fontWeight: 600,
+  },
 }));
