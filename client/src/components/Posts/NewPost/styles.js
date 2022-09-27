@@ -30,6 +30,7 @@ export default makeStyles((theme) => ({
       height: 50,
       width: 50,
       objectFit: "cover",
+      boxShadow: "0px 0px 3px 0px rgb(0 0 0 / 70%)",
     },
   },
   postForm: {
@@ -80,7 +81,7 @@ export default makeStyles((theme) => ({
       height: 67,
       width: 67,
       borderRadius: 35,
-      boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
+      boxShadow: "0px 0px 3px 0px rgb(0 0 0 / 70%)",
       objectFit: "cover",
     },
   },

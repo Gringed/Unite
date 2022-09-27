@@ -65,6 +65,7 @@ export default makeStyles((theme) => ({
         margin: "10px 0",
         borderRadius: 20,
         transition: "0.3s",
+        width:'inherit',
         "&:focus": {
           boxShadow: "0 0 2px 4px rgb(144 190 62)",
         },
@@ -94,6 +95,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    width:'100%',
     "& input": {
       borderRadius: "20px 0 0 20px !important",
     },
@@ -105,7 +107,6 @@ export default makeStyles((theme) => ({
     background: ColorGreen,
     padding: 10,
     borderRadius: "0 20px 20px 0",
-    width: "100%",
     border: "1px solid" + ColorPrim,
   },
   submitContainer: {
@@ -130,4 +131,8 @@ export default makeStyles((theme) => ({
       border: "1px solid" + ColorGreen,
     },
   },
+  error:{
+    color: 'red',
+    padding: 10
+  }
 }));

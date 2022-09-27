@@ -16,6 +16,7 @@ const Auth = (props) => {
   const [signModal, setSignModal] = useState(props.signup);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialState)
+  const [error, setError] = useState('')
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
@@ -24,8 +25,14 @@ const Auth = (props) => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const handleChangeModal = (event) => {
-    if (event.target.id === "login") setSignModal(props.signin);
-    if (event.target.id === "register") setSignModal(props.signup);
+    if (event.target.id === "login") {
+      setSignModal(props.signin);
+      setError()
+    }
+    if (event.target.id === "register") {
+      setSignModal(props.signup);
+      setError()
+    }
   };
 
   const handleChange = (e) => {
@@ -35,9 +42,9 @@ const Auth = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(signModal === props.signup){
-      dispatch(signup(formData, history))
+      dispatch(signup(formData, history, setError))
     }else{
-      dispatch(signin(formData, history))
+      dispatch(signin(formData, history, setError))
     }
   };
 
@@ -98,7 +105,7 @@ const Auth = (props) => {
               required
               name="email"
             />
-            <div className="email error"></div>
+            {error && error.includes('existant') && <div className={classes.error}>{error}</div>}
             {signModal ? (
               <>
                 <label htmlFor="firstname">Prénom</label>
@@ -149,7 +156,7 @@ const Auth = (props) => {
                 />
               )}
             </div>
-            <div className="password error"></div>
+            {error && error.includes('incorrect') && <div className={classes.error}>{error}</div>}
             {signModal ? (
               <>
                 <label htmlFor="password-conf">
@@ -161,6 +168,7 @@ const Auth = (props) => {
                     id="password-conf"
                     className="confirmPwd"
                     onChange={handleChange}
+                    required
                     name="confirmPassword"
                   />
                   {showPassword ? (
@@ -177,7 +185,7 @@ const Auth = (props) => {
                     />
                   )}
                 </div>
-                <div className="password-confirm error"></div>
+                {error && error.includes('mots de passe') && <div className={classes.error}>{error}</div>}
                 <input type="checkbox" id="enjoy" required/>
                 <label htmlFor="enjoy">
                   J'accepte <b>d'espionner mes collègues</b>

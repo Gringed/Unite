@@ -95,7 +95,7 @@ export default makeStyles((theme) => ({
   },
   avatar: {
     color: theme.palette.getContrastText(ColorPrim),
-    backgroundColor: ColorGreen,
+    boxShadow: "0px 0px 3px 0px rgb(0 0 0 / 70%)",
     margin: 10,
   },
 }));

@@ -10,6 +10,7 @@ import useStyles from "./styles";
 import { Redirect, useHistory } from "react-router-dom";
 import { getUser, getUsers } from "../../actions/user";
 import Trends from "../Trends/Trends";
+import Footer from "../Footer/Footer";
 
 
 const Dashboard = () => {
@@ -78,6 +79,7 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12} sm={5} md={4}>
               <Trends />
+              <Footer />
             </Grid>
           </Grid>
         </Container>

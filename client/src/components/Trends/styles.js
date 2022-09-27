@@ -11,6 +11,8 @@ export default makeStyles((theme) => ({
     borderRadius: 20,
     marginBottom: 14,
     padding: 15,
+    position: 'sticky',
+    top: '100px',
     "& h1": {
       fontSize: "1.3rem",
       color: ColorGreen,

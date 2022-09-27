@@ -103,7 +103,15 @@ const Post = ({ post, user, users }) => {
                     <FollowHandler idToFollow={post.creator} type={"card"} user={user} />
                   ) } */}
             <span>{dayjs(post.createdAt).locale(timeParserFR).fromNow()}</span>
+            {(post?.creator === user?._id ||
+              post?.creator === userInfo?.result.googleId ||
+              user?.isAdmin) && (
+              <div className={classes.buttonContainer}>
+                <DeleteCard id={post._id} />
+              </div>
+            )}
           </div>
+          
           <ButtonBase className={classes.cardAction} onClick={openPost}>
             <div className={classes.contenu}>
               <p>
@@ -154,13 +162,7 @@ const Post = ({ post, user, users }) => {
                   title={post._id}
                 ></iframe>
               )}
-              {(post?.creator === user?._id ||
-              post?.creator === userInfo?.result.googleId ||
-              user?.isAdmin) && (
-              <div className={classes.buttonContainer}>
-                <DeleteCard id={post._id} />
-              </div>
-            )}
+              
             </div>
             
           </ButtonBase>

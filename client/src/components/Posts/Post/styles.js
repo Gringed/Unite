@@ -29,7 +29,7 @@ export default makeStyles((theme) => ({
       height: 50,
       width: 50,
       borderRadius: 50,
-      boxShadow: "1px 1px 3px rgba(51, 51, 51, 0.192)",
+      boxShadow: "0px 0px 3px 0px rgb(0 0 0 / 70%)",
       objectFit: "cover",
     },
   },
@@ -86,6 +86,7 @@ export default makeStyles((theme) => ({
   buttonContainer: {
     display: "flex",
     justifyContent: 'flex-end',
+    margin: "0 0 0 10px",
     "&>div": {
       display: 'flex',
       background: ColorPrim,

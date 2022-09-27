@@ -109,7 +109,7 @@ const CardComments = ({ post, user, users }) => {
               name="text"
               onChange={(e) => setComment(e.target.value)}
               value={comment}
-              placeholder="Répondre . . ."
+              placeholder={comments.length < 1 ? "Soyez le premier à commenter..." : "Répondre..."}
             />
             <br />
             {comment && comment.length <= caracmax && (
