@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { followUser } from "../../actions/user";
 import * as Icons from "react-icons/ri";
-import Popup from "reactjs-popup";
 
 const FollowHandler = ({ idToFollow, type, user }) => {
   const [isFollowed, setIsFollowed] = useState(false);
   
   const dispatch = useDispatch();
 
-  console.log(user)
   const hasLikedPost = user?.following.find(
     (like) => like === idToFollow
   );

@@ -38,7 +38,6 @@ export default makeStyles((theme) => ({
       height: 2,
       width: 0,
       opacity: 0,
-      position: "absolute",
       backgroundColor: "none",
       display: "block",
       transition: ".3s width ease-in-out",

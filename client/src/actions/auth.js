@@ -16,6 +16,7 @@ export const signup = (formData, history) => async (dispatch) => {
       dispatch({type: 'AUTH', data})
       history.push('/dashboard')
     } catch (error) {
-      console.log(error.message);
+      console.log(error.response.data.message);
+      dispatch({type: 'ERROR', payload: error.response.data.message})
     }
   };

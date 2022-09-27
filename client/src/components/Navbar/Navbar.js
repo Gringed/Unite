@@ -20,7 +20,7 @@ const Navbar = () => {
     localStorage.clear()
   };
   const openProfil = () => {
-    history.push(`/profile/${userInfo?.result._id}`) 
+    history.push(`/profile/${userInfo?.result._id || userInfo?.result.googleId}`) 
     window.location.reload()
   }
 
@@ -44,7 +44,7 @@ const Navbar = () => {
             <img
               className={classes.image}
               src={logo}
-              alt=""
+              alt="Logo Unite"
               height="40"
               width="40"
             />
@@ -57,7 +57,7 @@ const Navbar = () => {
               <ButtonBase onClick={openProfil}>
                 <Avatar
                   className={classes.avatar}
-                  src={users &&
+                  src={(users &&
                     users[0]
                       ?.map((user) => {
                         if (user._id === userInfo?.result._id) {
@@ -66,8 +66,8 @@ const Navbar = () => {
                           return null;
                         }
                       })
-                      .join("")
-                  }
+                      .join(""))
+                  || userInfo?.result.imageUrl}
                 >
                   {userInfo?.result.name.charAt(0)}
                 </Avatar>

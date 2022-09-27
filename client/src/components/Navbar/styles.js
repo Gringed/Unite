@@ -34,7 +34,6 @@ export default makeStyles((theme) => ({
     textDecoration: "none",
     fontSize: "2em",
     fontWeight: 500,
-    textDecoration: "none",
   },
   image: {},
   toolbar: {

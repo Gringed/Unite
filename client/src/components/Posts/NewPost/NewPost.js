@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import FileBase from "react-file-base64";
 import { createPost, getPosts, updatePost } from "../../../actions/posts";
 import useStyles from "./styles";
-import { Avatar, Paper } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 
 const NewPost = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
@@ -16,6 +16,7 @@ const NewPost = ({ currentId, setCurrentId }) => {
     selectedFile: "",
   });
   const { user } = useSelector((state) => state.users);
+  const userInfo = JSON.parse(localStorage.getItem("profile"));
   const [video, setVideo] = useState("");
   const [message, setMessage] = useState("");
   const caracmax = 250;
@@ -39,8 +40,8 @@ const NewPost = ({ currentId, setCurrentId }) => {
         createPost({
           ...postData,
           message: message,
-          name: user.name,
-          avatar: user.imageUrl,
+          name: user ? user.name : userInfo.result.name,
+          avatar: user ? user.imageUrl : userInfo.result.imageUrl,
         })
       );
     }
@@ -80,24 +81,17 @@ const NewPost = ({ currentId, setCurrentId }) => {
     handleVideo();
   }, [post, dispatch, message, video, postData]);
 
-  if (!user) {
-    return (
-      <Paper className={classes.paper}>
-        <p>Veuillez vous connecter pour poster quelque chose</p>
-      </Paper>
-    );
-  }
 
   return (
     <div className={classes.postContainer}>
       <div className={classes.userInfo}>
-        <Link to={"/profile/" + (user._id ? user._id : user.result.googleId)}>
+        <Link to={"/profile/" + (user ? user._id : userInfo.result.googleId)}>
           <Avatar
             className={classes.avatar}
-            alt={user.name}
-            src={user.imageUrl}
+            alt={user ? user.name : userInfo.result.name}
+            src={user ? user.imageUrl : userInfo.result.imageUrl}
           >
-            {user.name.charAt(0)}
+            {user ? user.name.charAt(0) : userInfo.result.name.charAt(0)}
           </Avatar>
         </Link>
       </div>
@@ -115,7 +109,7 @@ const NewPost = ({ currentId, setCurrentId }) => {
           <textarea
             name="message"
             id="message"
-            placeholder={`Quoi de neuf  ${user.name.split(" ")[0]} ?`}
+            placeholder={`Quoi de neuf  ${user ? user.name.split(" ")[0] : userInfo.result.name.split(" ")[0]} ?`}
             onChange={(e) => setMessage(e.target.value)}
             value={message}
             required
@@ -125,12 +119,12 @@ const NewPost = ({ currentId, setCurrentId }) => {
         {message || postData.selectedFile || video.length > 2 ? (
           <li className={classes.cardContainer}>
             <div className={classes.cardLeft}>
-              <img src={user.imageUrl} alt="user-pic" />
+              <img src={user ? user.imageUrl : userInfo.result.imageUrl} alt="user-pic" />
             </div>
             <div className={classes.cardRight}>
               <div className={classes.cardHeader}>
                 <div className={classes.pseudo}>
-                  <h3>{user.name}</h3>
+                  <h3>{user ? user.name : userInfo.result.name}</h3>
                 </div>
                 <span>{timestampParser(Date.now())}</span>
               </div>

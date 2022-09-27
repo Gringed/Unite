@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { dateParse } from "../Utils";
-import { NavLink, useHistory } from "react-router-dom";
-import { getPosts, getTrends } from "../../actions/posts";
+import { useHistory } from "react-router-dom";
+import { getTrends } from "../../actions/posts";
 import useStyles from "./styles";
-import LikeButton from "../Posts/Post/LikeButton";
+import LikeTrends from "../Posts/Post/LikeTrends";
 import { getUsers } from "../../actions/user";
 
 const Trends = () => {
   const { posts, post } = useSelector((state) => state.posts);
-  const { user, users } = useSelector((state) => state.users);
+  const { users } = useSelector((state) => state.users);
   const trends = useSelector((state) => state.trends);
+  const userInfo = JSON.parse(localStorage.getItem("profile"));
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -22,7 +21,7 @@ const Trends = () => {
       let sortedArray = postsArr.sort((a, b) => {
         return b.likes.length - a.likes.length;
       });
-      sortedArray.length = 4;
+      sortedArray.length = 5;
       dispatch(getTrends(sortedArray));
     }
     dispatch(getUsers());
@@ -43,7 +42,7 @@ const Trends = () => {
                 }}
               >
                 <div>
-                  {post.creator.length == 24 ? (
+                  {post.creator.length === 24 ? (
                     <img
                       src={
                         users &&
@@ -84,7 +83,7 @@ const Trends = () => {
                     })}
                   </div>
                   <div className={classes.trendDetails}>
-                    <LikeButton post={post} user={user} />
+                    <LikeTrends post={post} user={userInfo.result} />
                   </div>
                 </div>
               </li>

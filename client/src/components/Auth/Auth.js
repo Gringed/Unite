@@ -34,8 +34,7 @@ const Auth = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if(signModal == props.signup){
+    if(signModal === props.signup){
       dispatch(signup(formData, history))
     }else{
       dispatch(signin(formData, history))

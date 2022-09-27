@@ -1,25 +1,22 @@
 import {
   Avatar,
   Badge,
-  Button,
   ButtonBase,
   Container,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Grid,
   Grow,
   LinearProgress,
-  TextField,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { RiArrowGoBackFill, RiCalendar2Line } from "react-icons/ri";
 import { FaBaby, FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useParams } from "react-router-dom";
-import { getUser, getUsers, updateProfile } from "../../actions/user";
+import { getUser, updateProfile } from "../../actions/user";
 import FileBase from "react-file-base64";
 import Navbar from "../Navbar/Navbar";
 import { birthdayParse, dateParse } from "../Utils";
@@ -54,18 +51,19 @@ const Profile = () => {
     );
     handleClose();
     dispatch(getUser(id));
-    dispatch(getPosts())
+    dispatch(getPosts());
   };
 
   useEffect(() => {
-    if (id.length == 24) {
+    if (id.length === 24) {
       setGoogleAccount(false);
       dispatch(getUser(id));
       dispatch(getPosts());
     } else {
       setGoogleAccount(true);
+      dispatch(getPosts());
     }
-  }, [id]);
+  }, [id, dispatch]);
   return userInfo ? (
     <div>
       <Navbar />
@@ -82,9 +80,40 @@ const Profile = () => {
               {googleAccount ? (
                 <div className={classes.profileContainer}>
                   <div className={classes.profileInfos}>
-                    <span>Identifiant Google : {id}</span>
+                    <div className={classes.profileAvatar}>
+                      <div className={classes.profileAvatarImg}>
+                        <img
+                          src="https://i.pinimg.com/originals/a7/12/87/a71287b6208aba540472f58d3e6db77e.png"
+                          alt="Utilisateur Google"
+                        />
+                      </div>
+                    </div>
+                    <div className={classes.profileInfosId}>
+                      <h1>Utilisateur Google</h1>
+                      <span>Identifiant: {id}</span>
+                    </div>
                   </div>
-                  <div></div>
+                  <div className={classes.profilePost}>
+                      <h1>Posts</h1>
+                      <hr />
+                      {isLoading ? (
+                        <LinearProgress className={classes.progressBar} />
+                      ) : (
+                        posts?.map(
+                          (post) =>
+                            post.creator === id && (
+                              <Grid key={post._id} item lg={12} md={12} sm={12}>
+                                <Post
+                                  post={post}
+                                  user={user}
+                                  users={users}
+                                  currentId={post._id}
+                                />
+                              </Grid>
+                            )
+                        )
+                      )}
+                    </div>
                 </div>
               ) : user ? (
                 <>
@@ -100,7 +129,13 @@ const Profile = () => {
                             Editer le profil
                           </ButtonBase>
                         ) : (
-                          <ButtonBase onClick={handleClickOpen}>
+                          <ButtonBase
+                            disabled
+                            style={{
+                              cursor: "not-allowed",
+                              pointerEvents: "auto",
+                            }}
+                          >
                             S'abonner
                           </ButtonBase>
                         )}
@@ -135,7 +170,11 @@ const Profile = () => {
                       <div className={classes.profileInfosOthers}>
                         <span>
                           <FaBaby />
-                          <p>{user.birthday ? dateParse(user.birthday).split(",")[0] : "Date de naissance inconnue"}</p>
+                          <p>
+                            {user.birthday
+                              ? dateParse(user.birthday).split(",")[0]
+                              : "Date de naissance inconnue"}
+                          </p>
                         </span>
                         <span>
                           <RiCalendar2Line />
@@ -247,7 +286,6 @@ const Profile = () => {
             <Grid item xs={12} sm={5} md={4}>
               {/* ICI REMPLACER FORM PAR LES TENDANCES */}
               <Trends />
-              
             </Grid>
           </Grid>
         </Container>

@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-/* import { UidContext } from "../AppContext"; */
-import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useDispatch } from "react-redux";
-import { getPost, getPosts, getTrends, likePost } from "../../../actions/posts";
+import { likePost } from "../../../actions/posts";
 import * as Icons from "react-icons/ri";
 import useStyles from "./styles";
-import { useEffect } from "react";
-const LikeButton = ({ post, user }) => {
+
+const LikeTrends = ({ post, user }) => {
   const [liked, setLiked] = useState(post?.likes);
   const classes = useStyles();
   const userInfo = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
 
-  const userId = userInfo?.result.googleId || user?._id;
+  const userId = userInfo?.result.googleId || userInfo?.result._id || user?._id;
   const hasLikedPost = post.likes.find((like) => like === userId);
 
   const handleLike = async () => {
@@ -24,14 +22,11 @@ const LikeButton = ({ post, user }) => {
       setLiked([...post.likes, userId]);
     }
   };
-  useEffect(() => {
-    
-  }, [])
   const Likes = () => {
     if (liked.length > 0) {
       return liked.find((like) => like === userId) ? (
         <>
-          <Icons.RiHeartFill className={classes.filled} onClick={handleLike} />
+          <Icons.RiHeartFill className={classes.filled} />
 
           <span>
             {liked.length > 2
@@ -41,7 +36,7 @@ const LikeButton = ({ post, user }) => {
         </>
       ) : (
         <>
-          <Icons.RiHeartLine className={classes.icon} onClick={handleLike} />
+          <Icons.RiHeartLine className={classes.icon} />
           <span>{liked?.length ? liked?.length : 0}</span>
         </>
       );
@@ -49,7 +44,7 @@ const LikeButton = ({ post, user }) => {
 
     return (
       <>
-        <Icons.RiHeartLine className={classes.icon} onClick={handleLike} />
+        <Icons.RiHeartLine className={classes.icon} />
         <span>{liked?.length ? liked?.length : 0}</span>
       </>
     );
@@ -57,10 +52,9 @@ const LikeButton = ({ post, user }) => {
 
   return (
     <div className={classes.likeIcon}>
-      
       <Likes className={classes.icon} />
     </div>
   );
 };
 
-export default LikeButton;
+export default LikeTrends;

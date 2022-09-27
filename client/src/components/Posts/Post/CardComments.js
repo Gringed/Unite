@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { addComment } from "../../../actions/posts";
 import FollowHandler from "../../Profile/FollowHandler";
 import { timestampParser } from "../../Utils";
@@ -40,16 +41,9 @@ const CardComments = ({ post, user, users }) => {
       {comments.map((comment) => (
         <div key={comment._id}>
           <div ref={commentsRef}></div>
-          <div
-            className={
-              comment.commenterId === user?._id ||
-              comment.commenterId === userInfo?.result.googleId
-                ? classes.commentContainerClient
-                : classes.commentContainer
-            }
-          >
+          <div className={classes.commentContainer}>
             <div className={classes.leftPart}>
-              {comment.commenterId?.length == 24 ? (
+              {comment.commenterId?.length === 24 ? (
                 <img
                   src={users[0]
                     .map((user) => {
@@ -69,28 +63,34 @@ const CardComments = ({ post, user, users }) => {
             <div className={classes.rightPart}>
               <div className={classes.commentHeader}>
                 <div className={classes.commentPseudo}>
-                  {comment.commenterId?.length == 24 ? (
-                    <h3>
-                      {users[0]
-                        .map((user) => {
-                          if (user._id === comment.commenterId) {
-                            return user.name;
-                          } else {
-                            return null;
-                          }
-                        })
-                        .join("")}
-                    </h3>
+                  {comment.commenterId?.length === 24 ? (
+                    <Link to={"/profile/" + post.creator}>
+                      <div className={classes.pseudo}>
+                        <h3>
+                          {users[0]
+                            .map((user) => {
+                              if (user._id === comment.commenterId) {
+                                return user.name;
+                              } else {
+                                return null;
+                              }
+                            })
+                            .join("")}
+                        </h3>
+                      </div>
+                    </Link>
                   ) : (
-                    <h3>{comment.commenterName}</h3>
+                    <Link to={"/profile/" + post.creator}>
+                      <h3>{comment.commenterName}</h3>
+                    </Link>
                   )}
-                  {comment.commenterId !== user?._id && (
+                  {/* {comment.commenterId !== user?._id && (
                     <FollowHandler
                       idToFollow={comment.commenterId}
                       type={"card"}
                       user={user}
                     />
-                  )}
+                  )} */}
                 </div>
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>

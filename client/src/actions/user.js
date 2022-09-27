@@ -26,7 +26,7 @@ export const getUser = (id) => async (dispatch) => {
 };
 
 export const followUser = (id, follower) => async (dispatch) => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+  
   try {
     const { data } = await api.followUser(id, follower);
     dispatch({ type: "FOLLOW_USER", payload: data });

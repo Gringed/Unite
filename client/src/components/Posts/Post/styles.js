@@ -50,7 +50,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     color: ColorGreen,
-    padding: "10pt 10pt",
+    padding: "15px 5px 10px 10px",
     alignItems: "center",
     fontSize: 15,
     [theme.breakpoints.down("xs")]: {
@@ -59,6 +59,8 @@ export default makeStyles((theme) => ({
     "& span": {
       fontStyle: "italic",
       fontSize: "0.8rem",
+      flex: 1,
+      textAlign: 'end'
     },
     "& a": {
       color: ColorGreen,
@@ -83,8 +85,9 @@ export default makeStyles((theme) => ({
   },
   buttonContainer: {
     display: "flex",
+    justifyContent: 'flex-end',
     "&>div": {
-      marginLeft: 10,
+      display: 'flex',
       background: ColorPrim,
       borderRadius: 25,
       transition: "0.3s",
@@ -172,30 +175,35 @@ export default makeStyles((theme) => ({
     "& input[type='text']": {
       width: "100%",
       background: "none",
-      borderRadius: 20,
-      border: "1px solid " + ColorWhite,
-      padding: 10,
+      border: 'none',
+      borderBottom: "1px solid " + ColorWhite,
+      padding: '10px 0',
       fontSize: "1rem",
       color: ColorWhite,
       transition: "all 0.2s ease-in-out",
       "&:focus": {
-        boxShadow: "0 0 2px 2px rgb(144 190 62)",
         outline: "none",
-        border: "1px solid transparent",
+        borderBottom: "1px solid " + ColorGreen,
       },
     },
     "& button": {
       padding: 10,
       width: 60,
-      background: ColorWhite,
-      borderRadius: "20px 6px 20px 20px",
+      background: 'none',
+      borderRadius: "20px 20px 0 0",
       transition: "0.2s",
-      border: ColorWhite,
+      borderBottom: '1px solid '+ ColorWhite,
+      border: "none",
       marginLeft: 10,
       position: "relative",
       overflow: "hidden",
       zIndex: 0,
       cursor: "pointer",
+      color: ColorWhite,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: 'x-large',
       "&::before": {
         content: "''",
         position: "absolute",
@@ -215,18 +223,11 @@ export default makeStyles((theme) => ({
       },
     },
   },
-  commentContainerClient: {
-    display: "flex",
-    border: "1px solid " + ColorGreen,
-    padding: 15,
-    margin: "5px 0",
-    borderRadius: "20px 20px 3px 25px",
-  },
   commentContainer: {
     display: "flex",
-    border: "1px solid " + ColorWhite,
+    boxShadow: '0px 0px 3px 2px #00000080',
     padding: 15,
-    margin: "5px 0",
+    margin: "10px 0",
     borderRadius: 20,
   },
   leftPart: {
@@ -245,13 +246,24 @@ export default makeStyles((theme) => ({
   },
   commentHeader: {
     display: "flex",
-    alignItems: "center",
+    margin: '2px 10px 5px',
     color: ColorWhite,
+    flexDirection: 'column'
   },
   commentPseudo: {
-    margin: "0 10px",
     display: "flex",
     alignItems: "center",
+    "& a": {
+      color: ColorGreen,
+      height: 'auto',
+      "&:hover":{
+        textDecoration: 'underline'
+      }
+    },
+    "& h3":{
+      margin: 0,
+      fontSize: 14
+    },
     "& span": {
       fontSize: "0.9rem",
       margin: "0 0 0 3px",

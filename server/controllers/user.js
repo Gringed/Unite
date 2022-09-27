@@ -37,9 +37,6 @@ export const signin = async (req, res) => {
 export const signup = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser)
-      return res.status(400).json({ message: "Utilisateur déjà existant" });
 
     if (password !== confirmPassword)
       return res
@@ -62,7 +59,7 @@ export const signup = async (req, res) => {
     );
     res.status(200).json({ result, token });
   } catch (error) {
-    res.status(500).json({ message: "Problème au niveau de l'inscription" });
+    res.status(500).json({ message: error });
   }
 };
 

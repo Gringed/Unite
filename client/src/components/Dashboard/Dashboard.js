@@ -7,13 +7,10 @@ import Navbar from "../Navbar/Navbar";
 import Posts from "../Posts/Posts";
 import useStyles from "./styles";
 
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { getUser, getUsers } from "../../actions/user";
 import Trends from "../Trends/Trends";
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
 
 const Dashboard = () => {
   const [currentId, setCurrentId] = useState(null);
@@ -21,7 +18,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const userInfo = JSON.parse(localStorage.getItem("profile"));
   const {user, users} = useSelector((state) => state.users);
-  const query = useQuery();
+
   const history = useHistory();
   const [search, setSearch] = useState("");
   // const [tags, setTags] = useState([]);
@@ -73,7 +70,7 @@ const Dashboard = () => {
                 <hr />
               </AppBar>
               <Posts
-                user={user}
+                user={user || userInfo.result}
                 users={users}
                 currentId={currentId}
                 setCurrentId={setCurrentId}
