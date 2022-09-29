@@ -12,8 +12,8 @@ import {
   LinearProgress,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { RiArrowGoBackFill, RiCalendar2Line } from "react-icons/ri";
-import { FaBaby, FaPlus } from "react-icons/fa";
+import { RiArrowGoBackFill, RiCalendar2Line, RiCloseLine } from "react-icons/ri";
+import { FaBaby, FaCross, FaPlus, FaRegEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useParams } from "react-router-dom";
 import { getUser, updateProfile } from "../../actions/user";
@@ -32,14 +32,20 @@ const Profile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [openInput, setOpenInput] = useState(false);
   const [googleAccount, setGoogleAccount] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [bio, setBio] = useState("");
+  const [birth, setBirth] = useState("");
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setOpenInput(false);
+  };
+  const modifBirthday = () => {
+    !openInput ? setOpenInput(true) : setOpenInput(false)
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,6 +53,7 @@ const Profile = () => {
       updateProfile(id, {
         imageUrl: selectedFile,
         bio: bio ? bio : user.bio,
+        birthday: birth ? birth : user.birthday,
       })
     );
     handleClose();
@@ -94,26 +101,26 @@ const Profile = () => {
                     </div>
                   </div>
                   <div className={classes.profilePost}>
-                      <h1>Posts</h1>
-                      <hr />
-                      {isLoading ? (
-                        <LinearProgress className={classes.progressBar} />
-                      ) : (
-                        posts?.map(
-                          (post) =>
-                            post.creator === id && (
-                              <Grid key={post._id} item lg={12} md={12} sm={12}>
-                                <Post
-                                  post={post}
-                                  user={user}
-                                  users={users}
-                                  currentId={post._id}
-                                />
-                              </Grid>
-                            )
-                        )
-                      )}
-                    </div>
+                    <h1>Posts</h1>
+                    <hr />
+                    {isLoading ? (
+                      <LinearProgress className={classes.progressBar} />
+                    ) : (
+                      posts?.map(
+                        (post) =>
+                          post.creator === id && (
+                            <Grid key={post._id} item lg={12} md={12} sm={12}>
+                              <Post
+                                post={post}
+                                user={user}
+                                users={users}
+                                currentId={post._id}
+                              />
+                            </Grid>
+                          )
+                      )
+                    )}
+                  </div>
                 </div>
               ) : user ? (
                 <>
@@ -269,6 +276,35 @@ const Profile = () => {
                           defaultValue={user.bio}
                           required
                         />
+                      </div>
+                      <div className={classes.profileBioModif}>
+                        <span>Date d'anniversaire</span>
+                        {user.birthday && !openInput ? (
+                          <div className={classes.birthdayContainer}>
+                            <FaBaby className={classes.birthdayBaby} />
+                            <span>
+                              {dateParse(user.birthday).split(",")[0]}
+                            </span>
+                            <FaRegEdit
+                              className={classes.birthdayEdit}
+                              onClick={modifBirthday}
+                            />
+                          </div>
+                        ) : (
+                          <div className={classes.birthdayInput}>
+                            <input
+                              name="birthday"
+                              id="birthday"
+                              type="date"
+                              min="1975-01-01"
+                              onChange={(e) => setBirth(e.target.value)}
+                            />
+                            <RiCloseLine
+                              className={classes.birthdayEdit}
+                              onClick={modifBirthday}
+                            />
+                          </div>
+                        )}
                       </div>
                     </DialogContent>
                     <DialogActions>

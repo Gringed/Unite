@@ -38,7 +38,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     "& button": {
       color: ColorWhite,
       fontFamily: "Montserrat",
@@ -47,11 +47,11 @@ export default makeStyles((theme) => ({
       borderRadius: 50,
     },
   },
-  profileAvatarImg:{
+  profileAvatarImg: {
     width: 150,
     height: 150,
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
     "& img": {
       objectFit: "cover",
       width: "100%",
@@ -59,7 +59,6 @@ export default makeStyles((theme) => ({
       border: "2px solid transparent",
       boxShadow: "0 0 0 2px" + ColorGreen,
     },
-    
   },
   profileInfosId: {
     display: "flex",
@@ -214,6 +213,43 @@ export default makeStyles((theme) => ({
         outline: "none",
       },
     },
+  },
+  birthdayContainer: {
+    display: "flex",
+    alignItems: "center",
+    "& span": {
+      padding: "0 10px",
+    },
+  },
+  birthdayBaby: {
+    color: ColorGreen,
+  },
+  birthdayEdit: {
+    cursor: "pointer",
+  },
+  birthdayInput: {
+    display: "flex",
+    alignItems: "center",
+    "& input":{
+      transition: "all 0.2s ease-in-out",
+      border: '1px solid '+ ColorWhite,
+      background: 'none',
+      padding: 10,
+      color: ColorWhite,
+      "&:focus": {
+        border: `1px solid ${ColorGreen}`,
+        outline: "none",
+      },
+    },
+    "& svg":{
+      cursor: 'pointer',
+      padding: '0 10px',
+      transition: "all 0.2s ease-in-out",
+      fontSize: 25,
+      "&:hover":{
+        color: ColorGreen
+      }
+    }
   },
   hashtag: {
     color: ColorGreen,
