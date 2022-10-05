@@ -13,8 +13,10 @@ export const getPost = async (req, res) => {
 };
 
 export const getPosts = async (req, res) => {
+  const skip = req.query.skip ? Number(req.query.skip) : 0;
+	const DEFAULT_LIMIT = 5;
   try {
-    const postMessages = await PostMessage.find().sort({ _id: -1 });
+    const postMessages = await PostMessage.find().sort({ _id: -1 }).skip(skip).limit(DEFAULT_LIMIT);
 
     res.status(200).json(postMessages);
   } catch (error) {

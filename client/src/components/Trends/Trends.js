@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getTrends } from "../../actions/posts";
 import useStyles from "./styles";
 import LikeTrends from "../Posts/Post/LikeTrends";
@@ -34,12 +34,9 @@ const Trends = () => {
         {trends.length &&
           trends.map((post) => {
             return (
+              <Link to={`/dashboard/${post._id}`} key={post._id}>
               <li
                 key={post._id}
-                onClick={() => {
-                  history.push(`/dashboard/${post._id}`);
-                  window.location.reload();
-                }}
               >
                 <div>
                   {post.creator.length === 24 ? (
@@ -87,6 +84,7 @@ const Trends = () => {
                   </div>
                 </div>
               </li>
+              </Link>
             );
           })}
       </ul>

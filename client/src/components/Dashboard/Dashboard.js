@@ -25,7 +25,7 @@ const Dashboard = () => {
   // const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    dispatch(getPosts());
+   
     userInfo && dispatch(getUser(userInfo.result._id))
     dispatch(getUsers())
   }, [currentId, dispatch]);

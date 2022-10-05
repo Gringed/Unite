@@ -13,10 +13,10 @@ export const getPost = (id) => async (dispatch) => {
   }
 };
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (skip) => async (dispatch) => {
   try {
     dispatch({ type: "START_LOADING" });
-    const { data } = await api.fetchPosts();
+    const { data } = await api.fetchPosts(skip);
     
     dispatch({
       type: "FETCH_ALL",

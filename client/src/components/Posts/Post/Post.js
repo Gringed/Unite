@@ -61,8 +61,6 @@ const Post = ({ post, user, users }) => {
     );
   };
 
-  // URL A CHANGER POUR LA PRODUCTION 
-  const url = new URL(`http://localhost:3000/dashboard/${post._id}`);
   const openPost = () => history.push(`/dashboard/${post._id}`);
   const openProfil = () => history.push(`/profile/${post.creator}`);
   return (
@@ -126,7 +124,7 @@ const Post = ({ post, user, users }) => {
                   return str + " ";
                 })}
               </p>
-              {url == document.location.href
+              {document.location.pathname.split('/')[2] === post._id
                 ? post.selectedFile && (
                     <Fancybox>
                       <a href={post.selectedFile} data-fancybox="gallery">

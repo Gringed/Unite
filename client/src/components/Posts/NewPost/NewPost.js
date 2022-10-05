@@ -109,7 +109,7 @@ const NewPost = ({ currentId, setCurrentId }) => {
           <textarea
             name="message"
             id="message"
-            placeholder={`Quoi de neuf  ${user ? user.name.split(" ")[0] : userInfo.result.name.split(" ")[0]} ?`}
+            placeholder={`Quoi de neuf  ${userInfo.result.name.split(" ")[0]} ?`}
             onChange={(e) => setMessage(e.target.value)}
             value={message}
             required
