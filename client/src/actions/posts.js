@@ -13,16 +13,21 @@ export const getPost = (id) => async (dispatch) => {
   }
 };
 
-export const getPosts = (skip) => async (dispatch) => {
+export const getPosts = async (skip) => {
   try {
-    dispatch({ type: "START_LOADING" });
-    const { data } = await api.fetchPosts(skip);
     
-    dispatch({
-      type: "FETCH_ALL",
-      payload: data,
-    });
-    dispatch({ type: "END_LOADING" });
+    const  data  = await fetch(
+			`http://localhost:3001/posts?skip=${skip}`,
+			{
+				method: "GET",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+			}
+		);
+    return await data.json();
+
   } catch (error) {
     console.log(error.message);
   }

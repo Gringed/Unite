@@ -9,35 +9,35 @@ import { getPosts } from "../../actions/posts";
 
 const Posts = ({ currentId, setCurrentId, user, users }) => {
   const { posts, isLoading } = useSelector((state) => state.posts);
-  const [newPostsArray, setNewPostsArray] = useState();
+  const [newPostsArray, setNewPostsArray] = useState([]);
   const [skip, setSkip] = useState(0)
   const [isEnd, setIsEnd] = useState(false)
   const classes = useStyles();
   const dispatch = useDispatch()
   
-
-  const fetchMoreData = () => {
+  const fetchMoreData = async () => {
     try {
-      dispatch(getPosts(skip))
+      const {data} = await getPosts(skip)
       if (!posts.length) {
         setIsEnd(true)
       }
-      setNewPostsArray(posts)
+      setNewPostsArray([...data])
+      console.log(newPostsArray)
     } catch (error) {
       console.log(error.message)
     }
   }
-  const loadMore = (e) => {
-    console.log(document.documentElement.offsetHeight)
-    console.log(e)
-    if(document.scrollingElement.scrollTop + 1 >= document.scrollingElement.scrollHeight){
-      setSkip(posts?.length)
-    }
+  const loadMore = () => {
+    
+    if(document.scrollingElement.scrollTop + window.innerHeight >= document.scrollingElement.scrollHeight){
+      setSkip(newPostsArray?.length)
+    } 
   }
   window.addEventListener('scroll', loadMore);
+  
   useEffect(() => {
-    fetchMoreData()
     
+    fetchMoreData()
   }, [skip])
 
   if (!posts.length && !isLoading)
@@ -52,17 +52,15 @@ const Posts = ({ currentId, setCurrentId, user, users }) => {
   return (
     <>
       <NewPost currentId={currentId} user={user} setCurrentId={setCurrentId} />
-      {isLoading ? (
-        <LinearProgress className={classes.progressBar} />
-      ) : (
+      
         <div className={classes.container}>
-          {posts?.map((post) => (
+          {newPostsArray?.map((post) => (
             <Grid key={post._id} item lg={12} md={12} sm={12}>
               <Post post={post} users={users} setCurrentId={setCurrentId} user={user} />
             </Grid>
           ))}
         </div>
-      )}
+      
     </>
   );
 };

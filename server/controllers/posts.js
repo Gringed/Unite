@@ -18,7 +18,7 @@ export const getPosts = async (req, res) => {
   try {
     const postMessages = await PostMessage.find().sort({ _id: -1 }).skip(skip).limit(DEFAULT_LIMIT);
 
-    res.status(200).json(postMessages);
+    res.status(200).json({data : postMessages});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
